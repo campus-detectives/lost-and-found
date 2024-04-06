@@ -44,11 +44,11 @@ const App = () => {
     <View style={styles.container}>
       <TouchableOpacity onPress={pickImage}>
         <View style={styles.imagePicker}>
-          {photo ? <Image source={{ uri: photo }} style={{ width: 200, height: 200 }} /> : <Text>Select Photo</Text>}
+          {photo ? <Image source={{ uri: photo }} style={{ width: 200, height: 200 }} /> : <Text style={styles.text}>Select Photo</Text>}
         </View>
       </TouchableOpacity>
       <View style={styles.inputContainer}>
-        <DropdownList items={items} index={3}/>
+        <DropdownList items={items} index={-1}/>
       </View>
 
       <TextInput

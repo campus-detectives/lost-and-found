@@ -5,7 +5,7 @@ import {Picker} from '@react-native-picker/picker';
 const DropdownList = ({ items,index }) => {
   var [selectedItem, setSelectedItem] = useState('');
 
-  selectedItem=items[index]["value"]
+  selectedItem=items[index+1]["value"]
 
   return (
     <View style={styles.container}>
