@@ -18,7 +18,7 @@ import {
   ScrollView,
 } from "react-native";
 
-export default function Signin() {
+export default function Signin({ navigation }) {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const windowFontScale = useWindowDimensions().fontScale;
@@ -122,7 +122,7 @@ export default function Signin() {
 
                   <Pressable
                     style={{ marginTop: 15 }}
-                    onPress={() => navigaton.navigate("signup")}
+                    onPress={() => navigation.navigate("signup")}
                   >
                     <Text
                       style={{

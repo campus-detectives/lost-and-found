@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
-const DropdownList = ({ items,index }) => {
-  var [selectedItem, setSelectedItem] = useState('');
+const DropdownList = ({ items, index }) => {
+  var [selectedItem, setSelectedItem] = useState("");
 
-  selectedItem=items[index+1]["value"]
+  selectedItem = items[index + 1]["value"];
+  //console.log(items[index + 1]);
 
   return (
     <View style={styles.container}>
@@ -25,11 +26,11 @@ const DropdownList = ({ items,index }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   picker: {
-    color: '#FFFFFF', // White text
+    color: "#FFFFFF", // White text
     width: 300,
   },
 });

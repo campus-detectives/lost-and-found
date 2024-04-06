@@ -15,7 +15,7 @@ import {
   Pressable,
 } from "react-native";
 
-export default function Signup() {
+export default function Signup({ navigation }) {
   const [username, onChangeText] = React.useState("");
   const [regnum, onChangeRegNum] = React.useState("");
   const [password, onChangePass] = React.useState("");
@@ -87,7 +87,8 @@ export default function Signup() {
 
                 <Pressable
                   style={{ marginTop: 15 }}
-                  onPress={() => navigaton.navigate("signup")}
+                  
+                  onPress={() => navigation.navigate("signin")}
                 >
                   <Text
                     style={{

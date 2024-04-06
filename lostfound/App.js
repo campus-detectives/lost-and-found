@@ -17,19 +17,53 @@ import {
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import home_std from "./home_std";
+import HomeScreen_student from "./home_std";
 import Signin from "./signin";
 import Signup from "./signup";
+import Upload from "./upload";
+import Alert from "./alert_std";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="home_std">
-        <Stack.Screen name="Home" component={home_std} />
-        <Stack.Screen name="signup" component={Signup} />
-        <Stack.Screen name="signin" component={Signin} />
+      <Stack.Navigator initialRouteName="HomeScreen_student">
+        <Stack.Screen
+          name="signup"
+          component={Signup}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="signin"
+          component={Signin}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="HomeScreen_student"
+          component={HomeScreen_student}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="upload"
+          component={Upload}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="alert"
+          component={alert}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -15,93 +15,31 @@ import {
   Pressable,
 } from "react-native";
 
-export default function Signup() {
-  const username = "";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import home_std from "./home_std";
+import Signin from "./signin";
+import Signup from "./signup";
+import upload from "./upload";
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.inner}>
-          <StatusBar backgroundColor="#5d2d33" />
-        </View>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="upload">
+        <Stack.Screen name="Upload" component={upload} />
+        <Stack.Screen name="Home" component={home_std} />
+        <Stack.Screen name="signup" component={Signup} />
+        <Stack.Screen name="signin" component={Signin} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#0b0b18",
-  },
-  inner: {
-    padding: 24,
-    flex: 1,
-    justifyContent: "space-around",
-  },
-  header: {
-    fontSize: 36,
-    marginBottom: 48,
-  },
-  textInput: {
-    height: 40,
-    borderColor: "#000000",
-    borderBottomWidth: 1,
-    marginBottom: 36,
-  },
-  btnContainer: {
-    backgroundColor: "white",
-    marginTop: 12,
-  },
-
-  logo: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    borderColor: "black",
-    borderWidth: 2,
-  },
-
-  center: {
-    marginTop: "0%",
-    alignItems: "center",
-    backgroundColor: "#0b0b18",
-  },
-
-  h1: {
-    paddingTop: 10,
-    alignItems: "center",
-  },
-
-  input: {
-    marginBottom: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: "#262626",
-    color: "white",
-  },
-  lable: {
-    fontSize: 18,
-    color: "white",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-    paddingRight: 10,
-    fontWeight: "bold",
-    marginBottom: 2,
-  },
-  button1: {
-    width: 270,
-    height: 40,
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: "#ffbf00",
-    marginTop: 12,
-    justifyContent: "center",
   },
 });
