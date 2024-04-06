@@ -22,13 +22,17 @@ import Signin from "./signin";
 import Signup from "./signup";
 import Upload from "./upload";
 import Alert from "./alert_std";
+import UploadScreen_student from "./upload_std";
+import HomeScreen_watchman from "./home_wm";
 
 const Stack = createNativeStackNavigator();
+
+const initialScreen = "HomeScreen_watchman";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="HomeScreen_student">
+      <Stack.Navigator initialRouteName={initialScreen}>
         <Stack.Screen
           name="signup"
           component={Signup}
@@ -58,8 +62,22 @@ export default function App() {
           }}
         />
         <Stack.Screen
-          name="alert"
-          component={alert}
+          name="Alert"
+          component={Alert}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="UploadScreen_student"
+          component={UploadScreen_student}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="HomeScreen_watchman"
+          component={HomeScreen_watchman}
           options={{
             headerShown: false,
           }}

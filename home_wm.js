@@ -16,6 +16,7 @@ import {
   FlatList,
   useWindowDimensions,
   ScrollView,
+  DisplayDataUrlAsImage,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Picker } from "@react-native-picker/picker";
@@ -27,7 +28,15 @@ export default function HomeScreen_student({ navigation }) {
   const [selectedValue, setSelectedValue] = useState("Select a Category");
   const [filtered_list, setFilteredList] = useState([]);
 
-  const lookout = [
+  const dataUrl = ""; //demo uri
+
+  const DisplayDataUrlAsImage = ({ dataUrl }) => {
+    return (
+      <Image source={{ uri: dataUrl }} style={{ width: 55, height: 55 }} />
+    );
+  };
+
+  const lostItemList = [
     //api end point
     { items: "A1", price: "B1", desc: "this is decription" },
     { items: "A2", price: "B2", desc: "this is decription" },
@@ -46,6 +55,7 @@ export default function HomeScreen_student({ navigation }) {
 
   const renderItem = ({ item }) => (
     <View style={styles.rows}>
+      <DisplayDataUrlAsImage dataUrl={dataUrl} style={styles.row_icon} />
       <View style={{ padding: 10 }}>
         <Text>Type: {item.items}</Text>
         <Text>Description: {item.desc}</Text>
@@ -261,4 +271,5 @@ const styles = StyleSheet.create({
       elevation: 5,
     },
   ],
+  row_icon: { height: 55, width: 55, borderRadius: 10 },
 });

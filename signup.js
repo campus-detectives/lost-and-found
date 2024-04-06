@@ -80,6 +80,7 @@ export default function Signup({ navigation }) {
                       fontWeight: "bold",
                       fontSize: 15,
                     }}
+                    //onpress continue
                   >
                     Continue
                   </Text>
@@ -87,7 +88,6 @@ export default function Signup({ navigation }) {
 
                 <Pressable
                   style={{ marginTop: 15 }}
-                  
                   onPress={() => navigation.navigate("signin")}
                 >
                   <Text

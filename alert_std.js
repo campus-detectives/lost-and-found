@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 const alert = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>A</Text>
+      <Text style={styles.text}>only if minimum goal is reached</Text>
     </View>
   );
 };
