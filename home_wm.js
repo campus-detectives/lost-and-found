@@ -64,9 +64,9 @@ export default function HomeScreen_student({ navigation }) {
   );
 
   const filter = (itemValue) => {
-    for (var i = 0; i < lookout.length; i++) {
-      if (itemValue == lookout[i].items) {
-        fl.push(lookout[i]);
+    for (var i = 0; i < lostItemList.length; i++) {
+      if (itemValue == lostItemList[i].items) {
+        fl.push(lostItemList[i]);
       }
     }
     console.log(fl);
@@ -98,7 +98,7 @@ export default function HomeScreen_student({ navigation }) {
                 padding: 10,
               }}
             >
-              Welcome,
+              Welc ome,
             </Text>
             <Text
               style={{
