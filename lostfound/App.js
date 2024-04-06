@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, TextInput, StyleSheet } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import * as ImagePicker from 'expo-image-picker';
+import DropdownList from './dropdown'; // assuming DropdownList is in the same directory
+
 
 const items = [
   { label: 'Select Item', value: '' },
@@ -46,16 +48,7 @@ const App = () => {
         </View>
       </TouchableOpacity>
       <View style={styles.inputContainer}>
-        <Picker
-          selectedValue={selectedItem}
-          style={styles.picker}
-          onValueChange={(itemValue, itemIndex) => setSelectedItem(itemValue)}
-        >
-          <Picker.Item label="Select Item" value="" />
-          <Picker.Item label="Earpods" value="earpods" />
-          <Picker.Item label="Umbrella" value="umbrella" />
-          <Picker.Item label="Stationary" value="stationary" />
-        </Picker>
+        <DropdownList items={items} index={3}/>
       </View>
 
       <TextInput
@@ -112,6 +105,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#262626', // Dark gray input container background
     color: '#FFFFFF', // White text
     borderRadius: 14,
+    height: 50,
   },
   input: {
     borderWidth: 1,
@@ -123,6 +117,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#262626', // Dark gray input background
     color: '#FFFFFF', // White text
     borderRadius: 14,
+    height: 50,
   },
   picker: {
     height: 50,
