@@ -54,12 +54,33 @@ export default function HomeScreen_student({ navigation }) {
   fl = [];
 
   const renderItem = ({ item }) => (
-    <View style={styles.rows}>
+    <View
+      style={[
+        styles.rows,
+        {
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        },
+      ]}
+    >
       <DisplayDataUrlAsImage dataUrl={dataUrl} style={styles.row_icon} />
       <View style={{ padding: 10 }}>
         <Text>Type: {item.items}</Text>
         <Text>Description: {item.desc}</Text>
       </View>
+      <Pressable>
+        <View
+          style={{
+            backgroundColor: "#ffbf00",
+            padding: 10,
+            width: 60,
+            borderRadius: 10,
+          }}
+        >
+          <Text>Claim</Text>
+        </View>
+      </Pressable>
     </View>
   );
 
@@ -98,7 +119,7 @@ export default function HomeScreen_student({ navigation }) {
                 padding: 10,
               }}
             >
-              Welc ome,
+              Welcome,
             </Text>
             <Text
               style={{
@@ -131,7 +152,6 @@ export default function HomeScreen_student({ navigation }) {
             </Pressable>
           </View>
         </View>
-
         <View
           style={{
             margin: 20,
@@ -140,89 +160,70 @@ export default function HomeScreen_student({ navigation }) {
             alignItems: "center",
           }}
         >
-          <Pressable
-            onPress={() => navigation.navigate("UploadScreen_student")}
-          >
-            <View
-              style={{
-                height: 40,
-                width: 150,
-                padding: 5,
-                borderRadius: 5,
-                backgroundColor: "#2d2d64",
-              }}
+          <View>
+            <Pressable
+              onPress={() => navigation.navigate("UploadScreen_student")}
             >
-              <Text
+              <View
                 style={{
-                  color: "white",
-                  textAlign: "center",
+                  height: 60,
+                  width: 150,
                   padding: 5,
+                  borderRadius: 5,
+                  backgroundColor: "#2d2d64",
                 }}
               >
-                ADD LOOKOUT
-              </Text>
-            </View>
-          </Pressable>
-          <Pressable onPress={() => navigation.navigate("Alert")}>
-            <View
-              style={{
-                height: 40,
-                width: 150,
-                padding: 5,
-                borderRadius: 5,
-                backgroundColor: "#2d2d64",
-              }}
-            >
-              <Text
-                style={{
-                  color: "white",
-                  textAlign: "center",
-                  padding: 5,
-                }}
-              >
-                ALERTS
-              </Text>
-            </View>
-          </Pressable>
-        </View>
+                <Text
+                  style={{
+                    color: "white",
+                    padding: 5,
+                    textAlignVertical: "center",
+                  }}
+                >
+                  ADD LOOKOUT
+                </Text>
+              </View>
+            </Pressable>
+          </View>
 
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#2d2d64",
-            width: 160,
-            height: 60,
-            alignSelf: "center",
-            marginBottom: 10,
-            borderRadius: 10,
-          }}
-        >
-          <Picker
-            selectedValue={selectedValue}
+          <View
             style={{
-              height: 40,
-              width: 140,
-              color: "white",
+              justifyContent: "center",
+              alignItems: "center",
               backgroundColor: "#2d2d64",
+              width: 160,
+              height: 60,
+              alignSelf: "center",
+              marginBottom: 10,
               borderRadius: 10,
             }}
-            itemStyle={{
-              fontSize: 70,
-              color: "black", //styling the picker not working
-            }}
-            placeholder="language"
-            onValueChange={(itemValue, itemIndex) => {
-              setSelectedValue(itemValue);
-              filter(itemValue);
-            }}
           >
-            <Picker.Item label="Bottle" value="A1" />
-            <Picker.Item label="pen" value="A2" />
-            <Picker.Item label="Python" value="A3" />
-            <Picker.Item label="C++" value="A4" />
-            <Picker.Item label="Ruby" value="A5" />
-          </Picker>
+            <Picker
+              selectedValue={selectedValue}
+              style={{
+                height: 40,
+                width: 140,
+                color: "white",
+                backgroundColor: "#2d2d64",
+                borderRadius: 10,
+              }}
+              itemStyle={{
+                fontSize: 70,
+                color: "black", //styling the picker not working
+              }}
+              placeholder="language"
+              onValueChange={(itemValue, itemIndex) => {
+                setSelectedValue(itemValue);
+                filter(itemValue);
+              }}
+            >
+              <Picker.Item label="Bottle" value="A1" />
+              <Picker.Item label="pen" value="A2" />
+              <Picker.Item label="Python" value="A3" />
+              <Picker.Item label="C++" value="A4" />
+              <Picker.Item label="Ruby" value="A5" />
+            </Picker>
+          </View>
         </View>
 
         <View

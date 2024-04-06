@@ -24,6 +24,7 @@ import Upload from "./upload";
 import Alert from "./alert_std";
 import UploadScreen_student from "./upload_std";
 import HomeScreen_watchman from "./home_wm";
+import Claim from "./claim";
 
 const Stack = createNativeStackNavigator();
 
@@ -78,6 +79,13 @@ export default function App() {
         <Stack.Screen
           name="HomeScreen_watchman"
           component={HomeScreen_watchman}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Claim"
+          component={Claim}
           options={{
             headerShown: false,
           }}
