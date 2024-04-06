@@ -49,8 +49,6 @@ export default function Signin() {
       return;
     }
     Api.login(username, regnum, password);
-
-
   };
 
   return (
@@ -122,7 +120,10 @@ export default function Signin() {
                     </Text>
                   </Pressable>
 
-                  <Pressable style={{ marginTop: 15 }}>
+                  <Pressable
+                    style={{ marginTop: 15 }}
+                    onPress={() => navigaton.navigate("signup")}
+                  >
                     <Text
                       style={{
                         textAlign: "center",
