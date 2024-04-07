@@ -28,7 +28,7 @@ import Claim from "./claim";
 
 const Stack = createNativeStackNavigator();
 
-const initialScreen = "HomeScreen_watchman";
+const initialScreen = "HomeScreen_student";
 
 export default function App() {
   return (
