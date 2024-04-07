@@ -14,11 +14,23 @@ import {
   onChangeText,
   Pressable,
 } from "react-native";
+import API from "./Api";
 
 export default function Signup({ navigation }) {
   const [username, onChangeText] = React.useState("");
   const [regnum, onChangeRegNum] = React.useState("");
   const [password, onChangePass] = React.useState("");
+
+  const onPressContinue = () => {
+    API.register(username, password).then(err => {
+      if (err !== null) {
+        console.log(err)
+      } else {
+        navigation.navigate("Signin");
+      }
+    });
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -73,14 +85,13 @@ export default function Signup({ navigation }) {
                   value={password}
                 />
 
-                <Pressable style={styles.button1}>
+                <Pressable style={styles.button1} onPress={onPressContinue}>
                   <Text
                     style={{
                       textAlign: "center",
                       fontWeight: "bold",
                       fontSize: 15,
                     }}
-                    //onpress continue
                   >
                     Continue
                   </Text>
@@ -88,7 +99,7 @@ export default function Signup({ navigation }) {
 
                 <Pressable
                   style={{ marginTop: 15 }}
-                  onPress={() => navigation.navigate("signin")}
+                  onPress={() => navigation.navigate("Signin")}
                 >
                   <Text
                     style={{

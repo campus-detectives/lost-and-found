@@ -17,38 +17,35 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
+import API from "./Api";
 
 export default function Signin({ navigation }) {
   const windowWidth = useWindowDimensions().width;
   const windowHeight = useWindowDimensions().height;
   const windowFontScale = useWindowDimensions().fontScale;
   const windowScale = useWindowDimensions().scale;
+  API.SigninCallback = (signedin) => {
+    if (signedin) {
+      if (API.user.is_guard) {
+        navigation.navigate("HomeScreen_watchman");
+      } else {
+        navigation.navigate("HomeScreen_student");
+      }
+
+    } else {
+      navigation.navigate("Signin");
+    }
+
+  };
 
   const [username, onChangeText] = React.useState("");
   const [regnum, onChangeRegNum] = React.useState("");
   const [password, onChangePass] = React.useState("");
 
   const verify = () => {
-    if (!username.trim().match(/^[a-zA-Z0-9]+$/)) {
-      Alert.alert("Username Invalid");
-      return;
-    }
-    if (!regnum.trim().match(/^\d{2}(BAI|BRS|BPS|BCE)\d{4}$/)) {
-      Alert.alert("Registration Number Invalid");
-      return;
-    }
-
-    const year = parseInt(regnum.substring(0, 2));
-    if (year <= 20) {
-      Alert.alert("RegistrationNumber Invalid");
-      return;
-    }
-
-    if (password.length < 8) {
-      Alert.alert("Password should be at least 8 characters long.");
-      return;
-    }
-    Api.login(username, regnum, password);
+    API.signin(username, password).then(err => {
+      console.log(err);
+    });
   };
 
   return (
@@ -108,7 +105,8 @@ export default function Signin({ navigation }) {
                     value={password}
                   />
 
-                  <Pressable style={styles.button1} onPress={verify}>
+                  <Pressable style={styles.button1} onPress={verify}
+                  >
                     <Text
                       style={{
                         textAlign: "center",
@@ -122,7 +120,7 @@ export default function Signin({ navigation }) {
 
                   <Pressable
                     style={{ marginTop: 15 }}
-                    onPress={() => navigation.navigate("signup")}
+                    onPress={() => navigation.navigate("Signup")}
                   >
                     <Text
                       style={{

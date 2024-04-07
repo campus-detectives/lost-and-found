@@ -19,10 +19,11 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Picker } from "@react-native-picker/picker";
+import API from "./Api";
 // import { Picker } from "@react-native-community/picker";
 
 export default function HomeScreen_student({ navigation }) {
-  const username = "HEET BRIJESH JHAVERI";
+  const username = API.user.username;
   const windowHeight = useWindowDimensions().height - 150;
   const [selectedValue, setSelectedValue] = useState("Select a Category");
   const [filtered_list, setFilteredList] = useState([]);
@@ -105,7 +106,7 @@ export default function HomeScreen_student({ navigation }) {
           <View>
             <Pressable
               onPress={() => {
-                /*signout code*/
+                API.signout()
               }}
             >
               <View

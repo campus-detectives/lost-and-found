@@ -25,12 +25,16 @@ import Alert from "./alert_std";
 import UploadScreen_student from "./upload_std";
 import HomeScreen_watchman from "./home_wm";
 import Claim from "./claim";
+import API from "./Api";
 
 const Stack = createNativeStackNavigator();
 
-const initialScreen = "HomeScreen_student";
-
 export default function App() {
+  const [signedIn, setSignedIn] = React.useState(false);
+
+
+  const initialScreen = API.SignedIn ? "HomeScreen_student" : "Signin";
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={initialScreen}>
