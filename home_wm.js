@@ -69,7 +69,7 @@ export default function HomeScreen_student({ navigation }) {
         <Text>Type: {item.items}</Text>
         <Text>Description: {item.desc}</Text>
       </View>
-      <Pressable>
+      <Pressable onPress={() => navigation.navigate("Claim")}>
         <View
           style={{
             backgroundColor: "#ffbf00",

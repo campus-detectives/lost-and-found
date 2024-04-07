@@ -35,14 +35,14 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={initialScreen}>
         <Stack.Screen
-          name="signup"
+          name="Signup"
           component={Signup}
           options={{
             headerShown: false,
           }}
         />
         <Stack.Screen
-          name="signin"
+          name="Signin"
           component={Signin}
           options={{
             headerShown: false,
@@ -77,15 +77,15 @@ export default function App() {
           }}
         />
         <Stack.Screen
-          name="HomeScreen_watchman"
-          component={HomeScreen_watchman}
+          name="Claim"
+          component={Claim}
           options={{
             headerShown: false,
           }}
         />
         <Stack.Screen
-          name="Claim"
-          component={Claim}
+          name="HomeScreen_watchman"
+          component={HomeScreen_watchman}
           options={{
             headerShown: false,
           }}
