@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   StyleSheet,
+  Pressable,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
@@ -50,18 +51,25 @@ export default function upload({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={pickImage}>
-        <View style={styles.imagePicker}>
-          {photo ? (
-            <Image
-              source={{ uri: photo }}
-              style={{ width: 200, height: 200 }}
-            />
-          ) : (
-            <Text>Select Photo</Text>
-          )}
+      <Pressable onPress={() => navigation.navigate("CamTest")}>
+        <View
+          style={{
+            borderWidth: 1,
+            borderColor: "white",
+            height: 40,
+            width: 150,
+            color: "white",
+            borderRadius: 5,
+            marginBottom: 10,
+            padding: 10,
+            alignItems: "center",
+            backgroundColor: "#ffbf00",
+          }}
+        >
+          <Text>Click Picture</Text>
         </View>
-      </TouchableOpacity>
+      </Pressable>
+
       <View style={styles.inputContainer}>
         <DropdownList items={items} index={2} />
       </View>

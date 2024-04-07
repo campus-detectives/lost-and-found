@@ -26,12 +26,14 @@ import UploadScreen_student from "./upload_std";
 import HomeScreen_watchman from "./home_wm";
 import Claim from "./claim";
 import API from "./Api";
+import CamTest from "./camTest";
 
 const Stack = createNativeStackNavigator();
 
+const initialScreen = "HomeScreen_watchman";
+
 export default function App() {
   const [signedIn, setSignedIn] = React.useState(false);
-
 
   const initialScreen = API.SignedIn ? "HomeScreen_student" : "Signin";
 
@@ -60,7 +62,7 @@ export default function App() {
           }}
         />
         <Stack.Screen
-          name="upload"
+          name="Upload"
           component={Upload}
           options={{
             headerShown: false,
@@ -90,6 +92,13 @@ export default function App() {
         <Stack.Screen
           name="HomeScreen_watchman"
           component={HomeScreen_watchman}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="CamTest"
+          component={CamTest}
           options={{
             headerShown: false,
           }}

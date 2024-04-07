@@ -161,9 +161,7 @@ export default function HomeScreen_student({ navigation }) {
           }}
         >
           <View>
-            <Pressable
-              onPress={() => navigation.navigate("UploadScreen_student")}
-            >
+            <Pressable onPress={() => navigation.navigate("Upload")}>
               <View
                 style={{
                   height: 60,
