@@ -14,17 +14,15 @@ import * as ImagePicker from "expo-image-picker";
 import DropdownList from "./dropdown"; // assuming DropdownList is in the same directory
 import API from "./Api";
 
-const items = [
-  { label: "Select Item", value: "" },
-  { label: "Earpods", value: "earpods" },
-  { label: "Umbrella", value: "umbrella" },
-  { label: "Stationary", value: "stationary" },
-];
+// const items = [
+//   { label: "Select Item", value: "" },
+//   { label: "Earpods", value: "earpods" },
+//   { label: "Umbrella", value: "umbrella" },
+//   { label: "Stationary", value: "stationary" },
+// ];
 
 export default function upload({ navigation }) {
-  const [photo, setPhoto] = useState(null);
   const [selectedItem, setSelectedItem] = useState("");
-  const [description, setDescription] = useState("");
   const [selectedPlace, setSelectedPlace] = useState("");
 
   const [uri, setUri] = useState(null);
@@ -50,7 +48,7 @@ export default function upload({ navigation }) {
     console.log("Selected Item:", selectedItem);
     console.log("Description:", description);
     console.log("Selected Place:", selectedPlace);
-    // TODO 
+    // TODO
     // uri !=null
     // category selected
     // location selected
@@ -59,8 +57,14 @@ export default function upload({ navigation }) {
       image: uri,
       category: selectedItem,
       location: selectedPlace,
-    }
-    API.addItem(itemData).then(err => { if (err !== null) { console.log(err) } else { navigation.navigate("HomeScreen_watchman") } });
+    };
+    API.addItem(itemData).then((err) => {
+      if (err !== null) {
+        console.log(err);
+      } else {
+        navigation.navigate("HomeScreen_watchman");
+      }
+    });
     // You can send the data to your backend or perform any other action
   };
 
@@ -106,16 +110,19 @@ export default function upload({ navigation }) {
       )}
 
       <View style={styles.inputContainer}>
-        <DropdownList items={items} index={2} />
+        <Picker
+          selectedValue={selectedPlace}
+          style={styles.picker}
+          onValueChange={(itemValue, itemIndex) => setSelectedItem(itemValue)}
+        >
+          <Picker.Item label="Select Category" value="" />
+          <Picker.Item label="Bottle" value="Bottle" />
+          <Picker.Item label="pen" value="pen" />
+          <Picker.Item label="earpods" value="earpods" />
+          <Picker.Item label="laptop" value="laptop" />
+        </Picker>
       </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Item Description"
-        placeholderTextColor="#fff"
-        onChangeText={(text) => setDescription(text)}
-        multiline
-      />
       <View style={styles.inputContainer}>
         <Picker
           selectedValue={selectedPlace}

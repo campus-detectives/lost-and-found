@@ -22,17 +22,18 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Picker } from "@react-native-picker/picker";
 // import { Picker } from "@react-native-community/picker";
 
-export default function HomeScreen_student({ navigation }) {
+export default function HomeScreen_student({ route, navigation }) {
   const username = "HEET BRIJESH JHAVERI";
   const windowHeight = useWindowDimensions().height - 150;
-  const [selectedValue, setSelectedValue] = useState("Select a Category");
-  const [filtered_list, setFilteredList] = useState([]);
-
-  const dataUrl = ""; //demo uri
-
+  const item = route.params.item;
+  const uri = item.image;
+  const dataUrl = uri;
   const DisplayDataUrlAsImage = ({ dataUrl }) => {
     return (
-      <Image source={{ uri: dataUrl }} style={{ width: 55, height: 55 }} />
+      <Image
+        source={{ uri: dataUrl }}
+        style={{ width: "100%", height: "100%" }}
+      />
     );
   };
 
@@ -68,7 +69,7 @@ export default function HomeScreen_student({ navigation }) {
         >
           <DisplayDataUrlAsImage
             dataUrl={dataUrl}
-            style={{ width: 500, height: 500 }}
+            style={{ width: "100%", height: "100%" }}
           />
         </View>
 
@@ -89,6 +90,11 @@ export default function HomeScreen_student({ navigation }) {
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
+            <View>
+              <Text style={[styles.lable, { marginTop: 5, marginBottom: -5 }]}>
+                ID: {item.id}
+              </Text>
+            </View>
             <View style={{ marginLeft: 15, marginTop: 20 }}>
               <Text style={styles.lable}>Registration Name</Text>
               <TextInput

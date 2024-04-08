@@ -16,6 +16,7 @@ import {
   FlatList,
   useWindowDimensions,
   ScrollView,
+  DisplayDataUrlAsImage,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Picker } from "@react-native-picker/picker";
@@ -25,22 +26,24 @@ import API from "./Api";
 export default function HomeScreen_student({ route, navigation }) {
   const username = "heet"; /*API.user.username;*/
   const windowHeight = useWindowDimensions().height - 150;
-  const [filtered_list, setFilteredList] = useState([]);
   const [selecetdCat, setSelectedCat] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
-
   const [lookout, setLookout] = useState([]);
+  const [filtered_id, setFilter_id] = useState(null);
   useEffect(() => {
     API.getItems().then((res) => {
       if (res == null) {
-        setLookout(API.items);
+        let temp = API.items;
+        setLookout(temp);
       } else {
         console.log(res);
       }
     });
   }, []);
   /* id, found_time, found_by, location, category, image */
-
+  const DisplayDataUrlAsImage = ({ dataUrl }) => {
+    return <Image source={{ uri: dataUrl }} style={styles.row_icon} />;
+  };
   /*const lookout = [
     //api end point //master list
     { itemID: 1, Cat: "Bottle", Place: "A Block" },
@@ -55,34 +58,49 @@ export default function HomeScreen_student({ route, navigation }) {
     { itemID: 1, Cat: "A10", Place: "B10" },
     { itemID: 1, Cat: "A11", Place: "B11" },
   ];*/
-
-  const filtered_id = [1, 2, 3, 4];
-  //get list of item ids from serach by image
-
+  //const [filtered_list, setFilteredList] = useState(lookout);
   fl = [];
-
   const renderItem = ({ item }) => (
-    <View style={styles.rows}>
-      <View style={{ padding: 10 }}>
-        <Text>Type: {item.Cat}</Text>
-        <Text>Description: {item.Place}</Text>
-      </View>
-    </View>
+    <>
+      {(selectedPlace === null || selectedPlace === item.location) &&
+      (selecetdCat === null || selecetdCat == item.category) &&
+      (filtered_id === null || filtered_id.includes(item.id)) ? (
+        <View
+          style={[
+            styles.rows,
+            {
+              flexDirection: "row",
+              alignItems: "center",
+            },
+          ]}
+        >
+          <DisplayDataUrlAsImage dataUrl={item.image} style={styles.row_icon} />
+          <View style={{ padding: 10 }}>
+            <View>
+              <Text>Type: {item.category}</Text>
+              <Text>Location: {item.location}</Text>
+              <Text>ID: {item.id}</Text>
+            </View>
+          </View>
+        </View>
+      ) : undefined}
+    </>
   );
 
-  const filter = (SelectedCat, SelectedPlace) => {
+  const filter = (SelectedCat, SelectedPlace, filtered_id) => {
     console.log({ SelectedCat });
     for (var i = 0; i < lookout.length; i++) {
       if (
-        SelectedCat == lookout[i].Cat &&
-        lookout[i].itemID in filtered_id &&
-        SelectedPlace == lookout[i].Place
+        SelectedCat == lookout[i].category &&
+        lookout[i].id in filtered_id &&
+        SelectedPlace == lookout[i].location
       ) {
         fl.push(lookout[i]);
       }
     }
+
     console.log(fl);
-    setFilteredList(fl);
+    //setFilteredList(fl);
   };
   return (
     <KeyboardAvoidingView
@@ -157,6 +175,7 @@ export default function HomeScreen_student({ route, navigation }) {
                 setSelectedCat,
                 setSelectedPlace,
                 filter,
+                setFilter_id,
               })
             }
           >
@@ -211,7 +230,7 @@ export default function HomeScreen_student({ route, navigation }) {
         >
           <ScrollView>
             <FlatList
-              data={filtered_list}
+              data={lookout}
               renderItem={renderItem}
               scrollToEnd={true}
               style={{ flexGrow: 1 }}
@@ -249,5 +268,5 @@ const styles = StyleSheet.create({
       elevation: 5,
     },
   ],
+  row_icon: { height: 75, width: 75, borderRadius: 10 },
 });
-``;

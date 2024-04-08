@@ -31,22 +31,21 @@ export default function Signin({ navigation }) {
       } else {
         navigation.navigate("HomeScreen_student");
       }
-
     } else {
       navigation.navigate("Signin");
     }
-
   };
 
-  const [username, onChangeText] = React.useState("");
+  const [username, onChangeText] = React.useState("Amal");
   const [regnum, onChangeRegNum] = React.useState("");
-  const [password, onChangePass] = React.useState("");
+  const [password, onChangePass] = React.useState("Amalamal");
 
   const verify = () => {
-    API.signin(username, password).then(err => {
+    API.signin(username, password).then((err) => {
       console.log(err);
     });
   };
+  verify();
 
   return (
     <KeyboardAvoidingView
@@ -105,8 +104,7 @@ export default function Signin({ navigation }) {
                     value={password}
                   />
 
-                  <Pressable style={styles.button1} onPress={verify}
-                  >
+                  <Pressable style={styles.button1} onPress={verify}>
                     <Text
                       style={{
                         textAlign: "center",

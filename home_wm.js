@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   KeyboardAvoidingView,
@@ -20,68 +20,88 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Picker } from "@react-native-picker/picker";
+import API from "./Api";
 // import { Picker } from "@react-native-community/picker";
 
 export default function HomeScreen_student({ navigation }) {
   const username = "HEET BRIJESH JHAVERI";
   const windowHeight = useWindowDimensions().height - 150;
-  const [selectedValue, setSelectedValue] = useState("Select a Category");
   const [filtered_list, setFilteredList] = useState([]);
+  const [lookout, setLookout] = useState([]);
+  const [searchID, setSearchID] = useState("");
+  useEffect(() => {
+    API.getItems().then((res) => {
+      if (res == null) {
+        let temp = API.items;
+        setLookout(temp);
+      } else {
+        console.log(res);
+      }
+    });
+  }, []);
 
   const dataUrl = ""; //demo uri
 
   const DisplayDataUrlAsImage = ({ dataUrl }) => {
-    return (
-      <Image source={{ uri: dataUrl }} style={{ width: 55, height: 55 }} />
-    );
+    return <Image source={{ uri: dataUrl }} style={styles.row_icon} />;
   };
 
-  const lostItemList = [
-    //api end point
-    { items: "A1", price: "B1", desc: "this is decription" },
-    { items: "A2", price: "B2", desc: "this is decription" },
-    { items: "A3", price: "B3", desc: "this is decription" },
-    { items: "A5", price: "B4", desc: "this is decription" },
-    { items: "A1", price: "B5", desc: "this is decription" },
-    { items: "A6", price: "B6", desc: "this is decription" },
-    { items: "A7", price: "B7", desc: "this is decription" },
-    { items: "A3", price: "B8", desc: "this is decription" },
-    { items: "A2", price: "B9", desc: "this is decription" },
-    { items: "A10", price: "B10", desc: "this is decription" },
-    { items: "A11", price: "B11", desc: "this is decription" },
-  ];
+  // const lostItemList = [
+  //   //api end point
+  //   { items: "A1", price: "B1", desc: "this is decription" },
+  //   { items: "A2", price: "B2", desc: "this is decription" },
+  //   { items: "A3", price: "B3", desc: "this is decription" },
+  //   { items: "A5", price: "B4", desc: "this is decription" },
+  //   { items: "A1", price: "B5", desc: "this is decription" },
+  //   { items: "A6", price: "B6", desc: "this is decription" },
+  //   { items: "A7", price: "B7", desc: "this is decription" },
+  //   { items: "A3", price: "B8", desc: "this is decription" },
+  //   { items: "A2", price: "B9", desc: "this is decription" },
+  //   { items: "A10", price: "B10", desc: "this is decription" },
+  //   { items: "A11", price: "B11", desc: "this is decription" },
+  // ];
 
   fl = [];
 
   const renderItem = ({ item }) => (
-    <View
-      style={[
-        styles.rows,
-        {
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-        },
-      ]}
-    >
-      <DisplayDataUrlAsImage dataUrl={dataUrl} style={styles.row_icon} />
-      <View style={{ padding: 10 }}>
-        <Text>Type: {item.items}</Text>
-        <Text>Description: {item.desc}</Text>
-      </View>
-      <Pressable onPress={() => navigation.navigate("Claim")}>
+    <>
+      {item.id == searchID || searchID === "" ? (
         <View
-          style={{
-            backgroundColor: "#ffbf00",
-            padding: 10,
-            width: 60,
-            borderRadius: 10,
-          }}
+          style={[
+            styles.rows,
+            {
+              flexDirection: "row",
+              alignItems: "center",
+            },
+          ]}
         >
-          <Text>Claim</Text>
+          <DisplayDataUrlAsImage dataUrl={item.image} style={styles.row_icon} />
+          <View style={{ padding: 10 }}>
+            <Text>Type: {item.category}</Text>
+            <Text>Loaction: {item.location}</Text>
+            <Text>ID: {item.id}</Text>
+          </View>
+          <Pressable
+            onPress={() => navigation.navigate("Claim", { item })}
+            style={{
+              position: "absolute",
+              right: 10,
+            }}
+          >
+            <View
+              style={{
+                backgroundColor: "#ffbf00",
+                padding: 10,
+                width: 60,
+                borderRadius: 10,
+              }}
+            >
+              <Text>Claim</Text>
+            </View>
+          </Pressable>
         </View>
-      </Pressable>
-    </View>
+      ) : undefined}
+    </>
   );
 
   const filter = (itemValue) => {
@@ -164,9 +184,10 @@ export default function HomeScreen_student({ navigation }) {
             <Pressable onPress={() => navigation.navigate("Upload")}>
               <View
                 style={{
-                  height: 60,
+                  height: 50,
                   width: 150,
-                  padding: 5,
+                  padding: 15,
+                  paddingLeft: 10,
                   borderRadius: 5,
                   backgroundColor: "#2d2d64",
                 }}
@@ -174,56 +195,37 @@ export default function HomeScreen_student({ navigation }) {
                 <Text
                   style={{
                     color: "white",
-                    padding: 5,
-                    textAlignVertical: "center",
+                    textAlign: "center",
                   }}
                 >
-                  ADD LOOKOUT
+                  ADD ITEM
                 </Text>
               </View>
             </Pressable>
           </View>
-
-          <View
-            style={{
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "#2d2d64",
-              width: 160,
-              height: 60,
-              alignSelf: "center",
-              marginBottom: 10,
-              borderRadius: 10,
-            }}
-          >
-            <Picker
-              selectedValue={selectedValue}
-              style={{
-                height: 40,
-                width: 140,
-                color: "white",
-                backgroundColor: "#2d2d64",
-                borderRadius: 10,
-              }}
-              itemStyle={{
-                fontSize: 70,
-                color: "black", //styling the picker not working
-              }}
-              placeholder="language"
-              onValueChange={(itemValue, itemIndex) => {
-                setSelectedValue(itemValue);
-                filter(itemValue);
-              }}          
-            >
-              <Picker.Item label="Bottle" value="A1" />
-              <Picker.Item label="pen" value="A2" />
-              <Picker.Item label="Python" value="A3" />
-              <Picker.Item label="C++" value="A4" />
-              <Picker.Item label="Ruby" value="A5" />
-            </Picker>
-          </View>
         </View>
-
+        <View style={{ padding: 5, alignItems: "center" }}>
+          <TextInput
+            style={{
+              borderWidth: 1,
+              borderColor: "#FFFFFF",
+              borderRadius: 5,
+              marginBottom: 20,
+              backgroundColor: "#262626",
+              color: "#FFFFFF",
+              borderRadius: 14,
+              height: 50,
+              width: 300,
+              margin: "auto",
+              padding: 10,
+            }}
+            onChangeText={setSearchID}
+            value={searchID}
+            placeholder="Search Item ID"
+            placeholderTextColor="white"
+            keyboardType="numeric"
+          />
+        </View>
         <View
           style={{
             padding: 5,
@@ -232,7 +234,7 @@ export default function HomeScreen_student({ navigation }) {
         >
           <ScrollView>
             <FlatList
-              data={filtered_list}
+              data={lookout}
               renderItem={renderItem}
               scrollToEnd={true}
               style={{ flexGrow: 1 }}
@@ -270,5 +272,5 @@ const styles = StyleSheet.create({
       elevation: 5,
     },
   ],
-  row_icon: { height: 55, width: 55, borderRadius: 10 },
+  row_icon: { height: 75, width: 75, borderRadius: 10 },
 });

@@ -12,7 +12,7 @@ import * as ImagePicker from "expo-image-picker";
 import DropdownList from "./dropdown"; // assuming DropdownList is in the same directory
 import Slider from "@react-native-community/slider";
 import API from "./Api";
-import * as FileSystem from 'expo-file-system';
+import * as FileSystem from "expo-file-system";
 
 export default function upload({ route, navigation }) {
   const [photo, setPhoto] = useState(null);
@@ -24,6 +24,7 @@ export default function upload({ route, navigation }) {
   const SelectedCat = route.params.setSelectedCat;
   const SelectedPlace = route.params.setSelectedPlace;
   const filter = route.params.filter;
+  const setFilter_id=route.params.setFilter_id;
 
   const handleSliderChange = (value) => {
     setThreshold(value);
@@ -45,21 +46,20 @@ export default function upload({ route, navigation }) {
   };
 
   const handleSubmit = () => {
-
     const getDataUri = async () => {
       if (uri == null) {
         return null;
       }
-      console.log(uri)
+      console.log(uri);
       let base64Image = await FileSystem.readAsStringAsync(uri, {
         encoding: FileSystem.EncodingType.Base64,
-      })
+      });
 
       base64Image = "data:image/png;base64," + base64Image;
       return base64Image;
-    }
+    };
 
-    getDataUri().then(img => {
+    getDataUri().then((img) => {
       let filtered_id = null;
       if (img != null) {
         API.matchingItem(img).then(([res, err]) => {
@@ -68,18 +68,18 @@ export default function upload({ route, navigation }) {
           } else {
             console.log(err);
           }
-          console.log(filtered_id)
+          console.log(filtered_id);
           console.log("Selected Cat:", selectedCat);
           console.log("Selected Place:", selectedPlace);
           console.log("Threshold:", threshold);
           SelectedCat(selectedCat);
           SelectedPlace(selectedPlace);
-          filter(selectedCat, selectedPlace);
+          setFilter_id(filtered_id);
+          filter(selectedCat, selectedPlace, filtered_id);
           navigation.navigate("HomeScreen_student");
         });
       }
-
-    })
+    });
   };
 
   return (
@@ -143,8 +143,9 @@ export default function upload({ route, navigation }) {
           onValueChange={handleSliderChange}
           minimumTrackTintColor="#FFFFFF"
           maximumTrackTintColor="#000000"
-          thumbTintColor={`rgb(${255 - (threshold * 255) / 100}, ${(threshold * 255) / 100
-            }, 0)`}
+          thumbTintColor={`rgb(${255 - (threshold * 255) / 100}, ${
+            (threshold * 255) / 100
+          }, 0)`}
         />
         <Text>{threshold}</Text>
       </View>
