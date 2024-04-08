@@ -35,7 +35,7 @@ const initialScreen = "HomeScreen_watchman";
 export default function App() {
   const [signedIn, setSignedIn] = React.useState(false);
 
-  // const initialScreen = API.SignedIn ? "HomeScreen_student" : "Signin";
+  const initialScreen = API.SignedIn ? "HomeScreen_student" : "Signin";
 
   return (
     <NavigationContainer>

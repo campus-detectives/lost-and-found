@@ -44,8 +44,6 @@ class APIManager {
     }
 
     async signin(username, password) {
-
-
         try {
             const response = await fetch(`${APIUrl}/tokens/authentication`, {
                 method: 'POST',
@@ -84,13 +82,60 @@ class APIManager {
         }
     }
 
+    ohno() {
+        this.user = null;
+        this.token = null;
+        this.SignedIn = false;
+        this.SigninCallback(false);
+    }
+
     signout() {
         this.token = null;
         this.user = null;
         this.SignedIn = false;
         this.SigninCallback(false); // Notify the app that the user has signed out
     }
-}
 
+    async addItem(itemData) {
+        if (!this.check()) {
+            return 'Failed to add item';
+        }
+        try {
+            const response = await fetch(`${APIUrl}/found`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.token.token}` // Include the authentication token in the request header
+                },
+                body: JSON.stringify(itemData) // Provide the item data in JSON format
+            });
+
+            if (!response.ok) {
+                if (response.status === 401) {
+                    this.ohno()
+                }
+                console.log(await response.json())
+                // Handle error based on response status
+                return 'Failed to add item';
+            }
+
+            console.log('Item added successfully!');
+            // Optionally, handle further actions upon successful item addition
+            return null; // Return null to indicate success
+
+        } catch (error) {
+            console.error('Failed to add item:', error.message);
+            return 'Failed to add item'; // Return error message
+        }
+    }
+
+    check() {
+        if (this.user == null || this.token == null || !this.SignedIn) {
+            this.ohno();
+            return false;
+        }
+        return true;
+    }
+}
 const API = new APIManager();
 export default API;

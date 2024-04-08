@@ -12,6 +12,7 @@ import { Picker } from "@react-native-picker/picker";
 
 import * as ImagePicker from "expo-image-picker";
 import DropdownList from "./dropdown"; // assuming DropdownList is in the same directory
+import API from "./Api";
 
 const items = [
   { label: "Select Item", value: "" },
@@ -49,6 +50,17 @@ export default function upload({ navigation }) {
     console.log("Selected Item:", selectedItem);
     console.log("Description:", description);
     console.log("Selected Place:", selectedPlace);
+    // TODO 
+    // uri !=null
+    // category selected
+    // location selected
+    // otherwise dont add item but show error
+    let itemData = {
+      image: uri,
+      category: selectedItem,
+      location: selectedPlace,
+    }
+    API.addItem(itemData).then(err => { if (err !== null) { console.log(err) } else { navigation.navigate("HomeScreen_watchman") } });
     // You can send the data to your backend or perform any other action
   };
 
