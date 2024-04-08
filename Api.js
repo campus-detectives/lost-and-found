@@ -1,4 +1,4 @@
-const APIUrl = "http://192.168.169.18:4000/v1";
+const APIUrl = "http://192.168.43.18:4000/v1";
 
 class APIManager {
     constructor() {

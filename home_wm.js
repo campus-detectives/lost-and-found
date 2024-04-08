@@ -213,7 +213,7 @@ export default function HomeScreen_student({ navigation }) {
               onValueChange={(itemValue, itemIndex) => {
                 setSelectedValue(itemValue);
                 filter(itemValue);
-              }}
+              }}          
             >
               <Picker.Item label="Bottle" value="A1" />
               <Picker.Item label="pen" value="A2" />

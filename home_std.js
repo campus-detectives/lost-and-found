@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   KeyboardAvoidingView,
@@ -22,48 +22,56 @@ import { Picker } from "@react-native-picker/picker";
 import API from "./Api";
 // import { Picker } from "@react-native-community/picker";
 
-export default function HomeScreen_student({ navigation }) {
-  const username = API.user.username;
+export default function HomeScreen_student({ route, navigation }) {
+  const username = "heet"; /*API.user.username;*/
   const windowHeight = useWindowDimensions().height - 150;
-  const [selectedValue, setSelectedValue] = useState("Select a Category");
   const [filtered_list, setFilteredList] = useState([]);
+  const [selecetdCat, setSelectedCat] = useState(null);
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
   const lookout = [
-    //api end point
-    { items: "A1", price: "B1", desc: "this is decription" },
-    { items: "A2", price: "B2", desc: "this is decription" },
-    { items: "A3", price: "B3", desc: "this is decription" },
-    { items: "A5", price: "B4", desc: "this is decription" },
-    { items: "A1", price: "B5", desc: "this is decription" },
-    { items: "A6", price: "B6", desc: "this is decription" },
-    { items: "A7", price: "B7", desc: "this is decription" },
-    { items: "A3", price: "B8", desc: "this is decription" },
-    { items: "A2", price: "B9", desc: "this is decription" },
-    { items: "A10", price: "B10", desc: "this is decription" },
-    { items: "A11", price: "B11", desc: "this is decription" },
+    //api end point //master list
+    { itemID: 1, Cat: "Bottle", Place: "A Block" },
+    { itemID: 2, Cat: "Bottle", Place: "A Block" },
+    { itemID: 3, Cat: "Bottle", Place: "A Block" },
+    { itemID: 4, Cat: "A5", Place: "A Block" },
+    { itemID: 1, Cat: "A1", Place: "AB1" },
+    { itemID: 1, Cat: "A6", Place: "B6" },
+    { itemID: 1, Cat: "A7", Place: "B7" },
+    { itemID: 1, Cat: "A3", Place: "B8" },
+    { itemID: 1, Cat: "A2", Place: "B9" },
+    { itemID: 1, Cat: "A10", Place: "B10" },
+    { itemID: 1, Cat: "A11", Place: "B11" },
   ];
+
+  const filtered_id = [1, 2, 3, 4];
+  //get list of item ids from serach by image
 
   fl = [];
 
   const renderItem = ({ item }) => (
     <View style={styles.rows}>
       <View style={{ padding: 10 }}>
-        <Text>Type: {item.items}</Text>
-        <Text>Description: {item.desc}</Text>
+        <Text>Type: {item.Cat}</Text>
+        <Text>Description: {item.Place}</Text>
       </View>
     </View>
   );
 
-  const filter = (itemValue) => {
+  const filter = (SelectedCat, SelectedPlace) => {
+    console.log({ SelectedCat });
     for (var i = 0; i < lookout.length; i++) {
-      if (itemValue == lookout[i].items) {
+      if (
+        SelectedCat == lookout[i].Cat &&
+        lookout[i].itemID in filtered_id &&
+        SelectedPlace == lookout[i].Place
+      ) {
         fl.push(lookout[i]);
       }
     }
     console.log(fl);
     setFilteredList(fl);
   };
-
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -106,7 +114,7 @@ export default function HomeScreen_student({ navigation }) {
           <View>
             <Pressable
               onPress={() => {
-                API.signout()
+                API.signout();
               }}
             >
               <View
@@ -132,7 +140,13 @@ export default function HomeScreen_student({ navigation }) {
           }}
         >
           <Pressable
-            onPress={() => navigation.navigate("UploadScreen_student")}
+            onPress={() =>
+              navigation.navigate("UploadScreen_student", {
+                setSelectedCat,
+                setSelectedPlace,
+                filter,
+              })
+            }
           >
             <View
               style={{
@@ -175,45 +189,6 @@ export default function HomeScreen_student({ navigation }) {
               </Text>
             </View>
           </Pressable>
-        </View>
-
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#2d2d64",
-            width: 160,
-            height: 60,
-            alignSelf: "center",
-            marginBottom: 10,
-            borderRadius: 10,
-          }}
-        >
-          <Picker
-            selectedValue={selectedValue}
-            style={{
-              height: 40,
-              width: 140,
-              color: "white",
-              backgroundColor: "#2d2d64",
-              borderRadius: 10,
-            }}
-            itemStyle={{
-              fontSize: 70,
-              color: "black", //styling the picker not working
-            }}
-            placeholder="language"
-            onValueChange={(itemValue, itemIndex) => {
-              setSelectedValue(itemValue);
-              filter(itemValue);
-            }}
-          >
-            <Picker.Item label="Bottle" value="A1" />
-            <Picker.Item label="pen" value="A2" />
-            <Picker.Item label="Python" value="A3" />
-            <Picker.Item label="C++" value="A4" />
-            <Picker.Item label="Ruby" value="A5" />
-          </Picker>
         </View>
 
         <View
@@ -263,4 +238,4 @@ const styles = StyleSheet.create({
     },
   ],
 });
-``
+``;

@@ -10,19 +10,22 @@ import {
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 import DropdownList from "./dropdown"; // assuming DropdownList is in the same directory
+import Slider from "@react-native-community/slider";
 
-const items = [
-  { label: "Select Item", value: "" },
-  { label: "Earpods", value: "earpods" },
-  { label: "Umbrella", value: "umbrella" },
-  { label: "Stationary", value: "stationary" },
-];
-
-export default function upload({ navigation }) {
+export default function upload({ route, navigation }) {
   const [photo, setPhoto] = useState(null);
-  const [selectedItem, setSelectedItem] = useState("");
-  const [description, setDescription] = useState("");
+  const [selectedCat, setSelectedCat] = useState("");
   const [selectedPlace, setSelectedPlace] = useState("");
+  const [threshold, setThreshold] = useState(60);
+  const [uri, setUri] = useState(null);
+
+  const SelectedCat = route.params.setSelectedCat;
+  const SelectedPlace = route.params.setSelectedPlace;
+  const filter = route.params.filter;
+
+  const handleSliderChange = (value) => {
+    setThreshold(value);
+  };
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -33,7 +36,7 @@ export default function upload({ navigation }) {
     });
 
     console.log(result);
-
+    setUri(result.assets[0].uri);
     if (!result.cancelled) {
       setPhoto(result.uri);
     }
@@ -42,37 +45,47 @@ export default function upload({ navigation }) {
   const handleSubmit = () => {
     // Here you can handle the submission of the form data
     console.log("Photo:", photo);
-    console.log("Selected Item:", selectedItem);
-    console.log("Description:", description);
+    console.log("Selected Cat:", selectedCat);
     console.log("Selected Place:", selectedPlace);
-    // You can send the data to your backend or perform any other action
+    console.log("Threshold:", threshold);
+    SelectedCat(selectedCat);
+    SelectedPlace(selectedPlace);
+    filter(selectedCat, selectedPlace);
+    navigation.navigate("HomeScreen_student");
   };
 
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={pickImage}>
         <View style={styles.imagePicker}>
-          {photo ? (
-            <Image
-              source={{ uri: photo }}
-              style={{ width: 200, height: 200 }}
-            />
-          ) : (
-            <Text>Select Photo</Text>
-          )}
+          <Text>Select a Photo</Text>
         </View>
+        <Image
+          style={{
+            height: 300,
+            width: 300,
+            marginBottom: 10,
+            borderRadius: 10,
+            borderWidth: 2,
+            borderColor: "white",
+          }}
+          source={{ uri: uri }}
+        />
       </TouchableOpacity>
       <View style={styles.inputContainer}>
-        <DropdownList items={items} index={2} />
+        <Picker
+          selectedValue={selectedCat}
+          style={styles.picker}
+          onValueChange={(itemValue, itemIndex) => setSelectedCat(itemValue)}
+        >
+          <Picker.Item label="Select Category" value="" />
+          <Picker.Item label="Bottle" value="Bottle" />
+          <Picker.Item label="pen" value="pen" />
+          <Picker.Item label="earpods" value="earpods" />
+          <Picker.Item label="laptop" value="laptop" />
+        </Picker>
       </View>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Item Description"
-        placeholderTextColor="#fff"
-        onChangeText={(text) => setDescription(text)}
-        multiline
-      />
       <View style={styles.inputContainer}>
         <Picker
           selectedValue={selectedPlace}
@@ -85,6 +98,28 @@ export default function upload({ navigation }) {
           <Picker.Item label="C Block" value="C Block" />
           <Picker.Item label="D Block" value="D Block" />
         </Picker>
+      </View>
+
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Set sensitivity threshold</Text>
+        <Slider
+          style={{
+            width: 300,
+            height: 40,
+            borderWidth: 1,
+            borderColor: "white",
+          }}
+          minimumValue={0}
+          maximumValue={100}
+          value={threshold}
+          onValueChange={handleSliderChange}
+          minimumTrackTintColor="#FFFFFF"
+          maximumTrackTintColor="#000000"
+          thumbTintColor={`rgb(${255 - (threshold * 255) / 100}, ${
+            (threshold * 255) / 100
+          }, 0)`}
+        />
+        <Text>{threshold}</Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Submit</Text>
@@ -99,56 +134,56 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: "#1a1a1a", // Dark gray background
+    backgroundColor: "#1a1a1a",
   },
   imagePicker: {
     borderWidth: 1,
-    borderColor: "#FFFFFF", // White border
+    borderColor: "#FFFFFF",
     alignItems: "center",
     justifyContent: "center",
-    width: 200,
-    height: 200,
+    width: 300,
+    height: 50,
     marginBottom: 20,
-    borderRadius: 20,
-    backgroundColor: "#333333", // Dark gray image picker background
+    borderRadius: 10,
+    backgroundColor: "#333333",
   },
   inputContainer: {
     borderWidth: 1,
-    borderColor: "#FFFFFF", // White border
+    borderColor: "#FFFFFF",
     borderRadius: 5,
     marginBottom: 20,
-    backgroundColor: "#262626", // Dark gray input container background
-    color: "#FFFFFF", // White text
+    backgroundColor: "#262626",
+    color: "#FFFFFF",
     borderRadius: 14,
     height: 50,
   },
   input: {
     borderWidth: 1,
-    borderColor: "#FFFFFF", // White border
+    borderColor: "#FFFFFF",
     borderRadius: 5,
     padding: 10,
     width: 300,
     marginBottom: 20,
-    backgroundColor: "#262626", // Dark gray input background
-    color: "#FFFFFF", // White text
+    backgroundColor: "#262626",
+    color: "#FFFFFF",
     borderRadius: 14,
     height: 50,
   },
   picker: {
     height: 50,
     width: 300,
-    color: "#FFFFFF", // White text
+    color: "#FFFFFF",
   },
   button: {
-    backgroundColor: "#007BFF", // Blue button background
+    backgroundColor: "#007BFF",
     padding: 10,
     borderRadius: 10,
   },
   buttonText: {
-    color: "#FFFFFF", // White button text
+    color: "#FFFFFF",
     fontWeight: "bold",
   },
   text: {
-    color: "#FFFFFF", // White text
+    color: "#FFFFFF",
   },
 });

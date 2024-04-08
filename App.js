@@ -30,7 +30,7 @@ import CamTest from "./camTest";
 
 const Stack = createNativeStackNavigator();
 
-const initialScreen = "HomeScreen_watchman";
+const initialScreen = "HomeScreen_student";
 
 export default function App() {
   const [signedIn, setSignedIn] = React.useState(false);
