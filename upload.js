@@ -9,6 +9,7 @@ import {
   Pressable,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
+
 import * as ImagePicker from "expo-image-picker";
 import DropdownList from "./dropdown"; // assuming DropdownList is in the same directory
 
@@ -25,20 +26,22 @@ export default function upload({ navigation }) {
   const [description, setDescription] = useState("");
   const [selectedPlace, setSelectedPlace] = useState("");
 
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
+  const [uri, setUri] = useState(null);
 
-    console.log(result);
+  // const pickImage = async () => {
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
 
-    if (!result.cancelled) {
-      setPhoto(result.uri);
-    }
-  };
+  //   console.log(result);
+
+  //   if (!result.cancelled) {
+  //     setPhoto(result.uri);
+  //   }
+  // };
 
   const handleSubmit = () => {
     // Here you can handle the submission of the form data
@@ -51,24 +54,44 @@ export default function upload({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={() => navigation.navigate("CamTest")}>
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: "white",
-            height: 40,
-            width: 150,
-            color: "white",
-            borderRadius: 5,
-            marginBottom: 10,
-            padding: 10,
-            alignItems: "center",
-            backgroundColor: "#ffbf00",
-          }}
+      {uri === null ? (
+        <Pressable
+          onPress={() =>
+            navigation.navigate("CamTest", {
+              su: setUri,
+            })
+          }
         >
-          <Text>Click Picture</Text>
-        </View>
-      </Pressable>
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: "white",
+              height: 40,
+              width: 150,
+              color: "white",
+              borderRadius: 5,
+              marginBottom: 10,
+              padding: 10,
+              alignItems: "center",
+              backgroundColor: "#ffbf00",
+            }}
+          >
+            <Text>Click Picture</Text>
+          </View>
+        </Pressable>
+      ) : (
+        <Image
+          style={{
+            height: 300,
+            width: 300,
+            marginBottom: 10,
+            borderRadius: 10,
+            borderWidth: 2,
+            borderColor: "white",
+          }}
+          source={{ uri: uri }}
+        />
+      )}
 
       <View style={styles.inputContainer}>
         <DropdownList items={items} index={2} />
