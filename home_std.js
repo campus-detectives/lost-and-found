@@ -29,7 +29,19 @@ export default function HomeScreen_student({ route, navigation }) {
   const [selecetdCat, setSelectedCat] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
 
-  const lookout = [
+  const [lookout, setLookout] = useState([]);
+  useEffect(() => {
+    API.getItems().then((res) => {
+      if (res == null) {
+        setLookout(API.items);
+      } else {
+        console.log(res);
+      }
+    });
+  }, []);
+  /* id, found_time, found_by, location, category, image */
+
+  /*const lookout = [
     //api end point //master list
     { itemID: 1, Cat: "Bottle", Place: "A Block" },
     { itemID: 2, Cat: "Bottle", Place: "A Block" },
@@ -42,7 +54,7 @@ export default function HomeScreen_student({ route, navigation }) {
     { itemID: 1, Cat: "A2", Place: "B9" },
     { itemID: 1, Cat: "A10", Place: "B10" },
     { itemID: 1, Cat: "A11", Place: "B11" },
-  ];
+  ];*/
 
   const filtered_id = [1, 2, 3, 4];
   //get list of item ids from serach by image
