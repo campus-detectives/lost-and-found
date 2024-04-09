@@ -28,9 +28,11 @@ export default function upload({ route, navigation }) {
       category: selectedItem,
       location: selectedPlace,
     };
+    navigation.navigate("Uploading");
     API.addItem(itemData).then((err) => {
       if (err !== null) {
         console.log(err);
+        navigation.navigate("Upload");
       } else {
         API.refreshItems(API.lookout);
         navigation.navigate("HomeScreen_watchman");
