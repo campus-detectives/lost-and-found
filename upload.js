@@ -88,8 +88,8 @@ export default function upload({ route, navigation }) {
           onValueChange={(itemValue, itemIndex) => setSelectedItem(itemValue)}
         >
           <Picker.Item label="Select Category" value="" />
-          <Picker.Item label="Select Category" value="" />
           <Picker.Item label="Bottle" value="Bottle" />
+          <Picker.Item label="Watch" value="Watch" />
           <Picker.Item label="Pen" value="Pen" />
           <Picker.Item label="Earpods" value="Earpods" />
           <Picker.Item label="Laptop" value="Laptop" />
