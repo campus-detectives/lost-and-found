@@ -21,19 +21,22 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Picker } from "@react-native-picker/picker";
 import API from "./Api";
-// import { Picker } from "@react-native-community/picker";
 
 export default function HomeScreen_student({ navigation }) {
-  const username = "HEET BRIJESH JHAVERI";
+  const username = API.user.username;
   const windowHeight = useWindowDimensions().height - 150;
   const [filtered_list, setFilteredList] = useState([]);
   const [lookout, setLookout] = useState([]);
   const [searchID, setSearchID] = useState("");
+  const [length, setLength] = useState();
+  const [claimed, setClaimed] = useState(false);
+  API.lookout = setLookout;
   useEffect(() => {
     API.getItems().then((res) => {
       if (res == null) {
         let temp = API.items;
         setLookout(temp);
+        setLength(lookout.length * 20 + windowHeight);
       } else {
         console.log(res);
       }
@@ -46,26 +49,11 @@ export default function HomeScreen_student({ navigation }) {
     return <Image source={{ uri: dataUrl }} style={styles.row_icon} />;
   };
 
-  // const lostItemList = [
-  //   //api end point
-  //   { items: "A1", price: "B1", desc: "this is decription" },
-  //   { items: "A2", price: "B2", desc: "this is decription" },
-  //   { items: "A3", price: "B3", desc: "this is decription" },
-  //   { items: "A5", price: "B4", desc: "this is decription" },
-  //   { items: "A1", price: "B5", desc: "this is decription" },
-  //   { items: "A6", price: "B6", desc: "this is decription" },
-  //   { items: "A7", price: "B7", desc: "this is decription" },
-  //   { items: "A3", price: "B8", desc: "this is decription" },
-  //   { items: "A2", price: "B9", desc: "this is decription" },
-  //   { items: "A10", price: "B10", desc: "this is decription" },
-  //   { items: "A11", price: "B11", desc: "this is decription" },
-  // ];
-
   fl = [];
 
   const renderItem = ({ item }) => (
     <>
-      {item.id == searchID || searchID === "" ? (
+      {(item.id == searchID || searchID === "") && item.claimed === claimed ? (
         <View
           style={[
             styles.rows,
@@ -80,25 +68,28 @@ export default function HomeScreen_student({ navigation }) {
             <Text>Type: {item.category}</Text>
             <Text>Loaction: {item.location}</Text>
             <Text>ID: {item.id}</Text>
+            {claimed ? <Text>Claimed By: {item.claimed_by}</Text> : undefined}
           </View>
-          <Pressable
-            onPress={() => navigation.navigate("Claim", { item })}
-            style={{
-              position: "absolute",
-              right: 10,
-            }}
-          >
-            <View
+          {!claimed ? (
+            <Pressable
+              onPress={() => navigation.navigate("Claim", { item, setLookout })}
               style={{
-                backgroundColor: "#ffbf00",
-                padding: 10,
-                width: 60,
-                borderRadius: 10,
+                position: "absolute",
+                right: 10,
               }}
             >
-              <Text>Claim</Text>
-            </View>
-          </Pressable>
+              <View
+                style={{
+                  backgroundColor: "#ffbf00",
+                  padding: 10,
+                  width: 60,
+                  borderRadius: 10,
+                }}
+              >
+                <Text>Claim</Text>
+              </View>
+            </Pressable>
+          ) : undefined}
         </View>
       ) : undefined}
     </>
@@ -181,7 +172,9 @@ export default function HomeScreen_student({ navigation }) {
           }}
         >
           <View>
-            <Pressable onPress={() => navigation.navigate("Upload")}>
+            <Pressable
+              onPress={() => navigation.navigate("Upload", { setLookout })}
+            >
               <View
                 style={{
                   height: 50,
@@ -199,6 +192,35 @@ export default function HomeScreen_student({ navigation }) {
                   }}
                 >
                   ADD ITEM
+                </Text>
+              </View>
+            </Pressable>
+          </View>
+          <View>
+            <Pressable
+              onPress={() => {
+                setClaimed(!claimed);
+                console.log(claimed);
+              }}
+            >
+              <View
+                style={{
+                  height: 50,
+                  width: 150,
+                  padding: 15,
+                  paddingLeft: 10,
+                  borderRadius: 5,
+                  backgroundColor: "#2d2d64",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "white",
+                    textAlign: "center",
+                    verticalAlign: "middle",
+                  }}
+                >
+                  {claimed ? <>CLAIMED</> : <>UNCLIMED</>}
                 </Text>
               </View>
             </Pressable>
@@ -229,7 +251,7 @@ export default function HomeScreen_student({ navigation }) {
         <View
           style={{
             padding: 5,
-            height: windowHeight,
+            height: length,
           }}
         >
           <ScrollView>

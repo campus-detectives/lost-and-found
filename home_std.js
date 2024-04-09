@@ -24,7 +24,7 @@ import API from "./Api";
 // import { Picker } from "@react-native-community/picker";
 
 export default function HomeScreen_student({ route, navigation }) {
-  const username = "heet"; /*API.user.username;*/
+  const username = API.user.username;
   const windowHeight = useWindowDimensions().height - 150;
   const [selecetdCat, setSelectedCat] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);

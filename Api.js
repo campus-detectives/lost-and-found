@@ -7,6 +7,7 @@ class APIManager {
     this.token = null;
     this.user = null;
     this.items = null;
+    this.lookout = null;
   }
 
   async register(username, password) {
@@ -159,7 +160,7 @@ class APIManager {
     }
   }
 
-  async matchingItem(image) {
+  async matchingItem(image, threshold) {
     if (!this.check()) {
       return [null, "Failed to get items"];
     }
@@ -172,6 +173,7 @@ class APIManager {
         },
         body: JSON.stringify({
           image: image,
+          threshold: threshold,
         }),
       });
 
@@ -191,6 +193,50 @@ class APIManager {
       console.error("Failed to get items:", error.message);
       return "Failed to get items"; // Return error message
     }
+  }
+
+  async claimItem(itemData) {
+    if (!this.check()) {
+      return "Failed to claim item";
+    }
+    try {
+      const response = await fetch(`${APIUrl}/found/claim`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token.token}`, // Include the authentication token in the request header
+        },
+        body: JSON.stringify(itemData), // Provide the item data in JSON format
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          this.ohno();
+        }
+        console.log(await response.json());
+        // Handle error based on response status
+        return "Failed to add item";
+      }
+
+      console.log("Item claimed successfully!");
+      // Optionally, handle further actions upon successful item addition
+      return null; // Return null to indicate success
+    } catch (error) {
+      console.error("Failed to claim item:", error.message);
+      return "Failed to claim item"; // Return error message
+    }
+  }
+
+  refreshItems(setLookout) {
+    this.items = null;
+    API.getItems().then((res) => {
+      if (res == null) {
+        let temp = API.items;
+        setLookout(temp);
+      } else {
+        console.log(res);
+      }
+    });
   }
 
   check() {

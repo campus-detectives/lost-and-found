@@ -20,12 +20,14 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Picker } from "@react-native-picker/picker";
+import API from "./Api";
 // import { Picker } from "@react-native-community/picker";
 
 export default function HomeScreen_student({ route, navigation }) {
   const username = "HEET BRIJESH JHAVERI";
   const windowHeight = useWindowDimensions().height - 150;
   const item = route.params.item;
+  const setLookout = route.params.setLookout;
   const uri = item.image;
   const dataUrl = uri;
   const DisplayDataUrlAsImage = ({ dataUrl }) => {
@@ -36,9 +38,22 @@ export default function HomeScreen_student({ route, navigation }) {
       />
     );
   };
-
-  const [regname, onChangeRegName] = React.useState("");
   const [regnum, onChangeRegNum] = React.useState("");
+
+  const claim = () => {
+    let itemData = {
+      id: item.id,
+      claimed_by: regnum,
+    };
+    API.claimItem(itemData).then((err) => {
+      if (err !== null) {
+        console.log(err);
+      } else {
+        API.refreshItems(setLookout);
+        navigation.navigate("HomeScreen_watchman");
+      }
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -96,19 +111,13 @@ export default function HomeScreen_student({ route, navigation }) {
               </Text>
             </View>
             <View style={{ marginLeft: 15, marginTop: 20 }}>
-              <Text style={styles.lable}>Registration Name</Text>
-              <TextInput
-                style={[styles.input, { height: 40, width: 270 }]}
-                onChangeText={onChangeRegName}
-                value={regname}
-              />
               <Text style={styles.lable}>Registration Number</Text>
               <TextInput
                 style={[styles.input, { height: 40, width: 270 }]}
                 onChangeText={onChangeRegNum}
                 value={regnum}
               />
-              <Pressable style={styles.button1}>
+              <Pressable style={styles.button1} onPress={claim}>
                 <Text
                   style={{
                     textAlign: "center",

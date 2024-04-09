@@ -24,7 +24,7 @@ export default function upload({ route, navigation }) {
   const SelectedCat = route.params.setSelectedCat;
   const SelectedPlace = route.params.setSelectedPlace;
   const filter = route.params.filter;
-  const setFilter_id=route.params.setFilter_id;
+  const setFilter_id = route.params.setFilter_id;
 
   const handleSliderChange = (value) => {
     setThreshold(value);
@@ -60,11 +60,11 @@ export default function upload({ route, navigation }) {
     };
 
     getDataUri().then((img) => {
-      let filtered_id = null;
+      setFilter_id(null);
       if (img != null) {
-        API.matchingItem(img).then(([res, err]) => {
+        API.matchingItem(img, threshold).then(([res, err]) => {
           if (err == null) {
-            filtered_id = res;
+            filtered_id = res.match;
           } else {
             console.log(err);
           }
@@ -128,8 +128,17 @@ export default function upload({ route, navigation }) {
         </Picker>
       </View>
 
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Set sensitivity threshold</Text>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: -60,
+        }}
+      >
+        <Text style={{ color: "white", fontWeight: "bold" }}>
+          Set sensitivity threshold
+        </Text>
         <Slider
           style={{
             width: 300,
@@ -147,7 +156,7 @@ export default function upload({ route, navigation }) {
             (threshold * 255) / 100
           }, 0)`}
         />
-        <Text>{threshold}</Text>
+        <Text style={{ fontSize: 50, color: "white" }}>{threshold}</Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Submit</Text>

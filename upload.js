@@ -21,12 +21,11 @@ import API from "./Api";
 //   { label: "Stationary", value: "stationary" },
 // ];
 
-export default function upload({ navigation }) {
+export default function upload({ route, navigation }) {
   const [selectedItem, setSelectedItem] = useState("");
   const [selectedPlace, setSelectedPlace] = useState("");
 
   const [uri, setUri] = useState(null);
-
   // const pickImage = async () => {
   //   let result = await ImagePicker.launchImageLibraryAsync({
   //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -44,15 +43,16 @@ export default function upload({ navigation }) {
 
   const handleSubmit = () => {
     // Here you can handle the submission of the form data
-    console.log("Photo:", photo);
     console.log("Selected Item:", selectedItem);
-    console.log("Description:", description);
     console.log("Selected Place:", selectedPlace);
     // TODO
     // uri !=null
     // category selected
     // location selected
     // otherwise dont add item but show error
+    if (uri === null) {
+      return;
+    }
     let itemData = {
       image: uri,
       category: selectedItem,
@@ -62,6 +62,7 @@ export default function upload({ navigation }) {
       if (err !== null) {
         console.log(err);
       } else {
+        API.refreshItems(API.lookout);
         navigation.navigate("HomeScreen_watchman");
       }
     });
@@ -111,7 +112,7 @@ export default function upload({ navigation }) {
 
       <View style={styles.inputContainer}>
         <Picker
-          selectedValue={selectedPlace}
+          selectedValue={selectedItem}
           style={styles.picker}
           onValueChange={(itemValue, itemIndex) => setSelectedItem(itemValue)}
         >
