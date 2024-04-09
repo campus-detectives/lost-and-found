@@ -46,24 +46,15 @@ export default function HomeScreen_student({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#5d2d33" />
+      <StatusBar backgroundColor="#141e3c" />
       <ScrollView style={{ flex: 1, padding: 5 }}>
         <View>
-          <Text
-            style={{
-              color: "white",
-              textAlign: "center",
-              fontSize: 40,
-              padding: 10,
-            }}
-          >
-            Register
-          </Text>
+          <Text style={styles.header}>Register</Text>
         </View>
 
         <View
           style={{
-            borderWidth: 2,
+            borderWidth: 1,
             borderColor: "white",
             margin: 5,
             width: 300,
@@ -81,7 +72,7 @@ export default function HomeScreen_student({ route, navigation }) {
           style={{
             marginLeft: 20,
             marginRight: 20,
-            backgroundColor: "#2d2d64",
+            backgroundColor: "#0f0f0f",
             borderRadius: 20,
             marginTop: 10,
             borderWidth: 2,
@@ -128,7 +119,7 @@ export default function HomeScreen_student({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0b0b18",
+    backgroundColor: "#141e3c",
   },
   rows: [
     {
@@ -167,7 +158,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "#262626",
+    backgroundColor: "#d9f6f7",
     color: "white",
   },
   button1: {
@@ -179,5 +170,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffbf00",
     marginTop: 12,
     justifyContent: "center",
+  },
+  header: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 40,
+    padding: 10,
   },
 });

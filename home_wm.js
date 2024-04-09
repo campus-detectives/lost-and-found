@@ -58,7 +58,11 @@ export default function HomeScreen_student({ navigation }) {
             <Text style={{ color: "white" }}>Type: {item.category}</Text>
             <Text style={{ color: "white" }}>Loaction: {item.location}</Text>
             <Text style={{ color: "white" }}>ID: {item.id}</Text>
-            {claimed ? <Text>Claimed By: {item.claimed_by}</Text> : undefined}
+            {claimed ? (
+              <Text style={{ color: "white" }}>
+                Claimed By: {item.claimed_by}
+              </Text>
+            ) : undefined}
           </View>
           {!claimed ? (
             <Pressable
@@ -69,7 +73,7 @@ export default function HomeScreen_student({ navigation }) {
               }}
             >
               <View style={styles.claim}>
-                <Text>Claim</Text>
+                <Text style={{ color: "white" }}>Claim</Text>
               </View>
             </Pressable>
           ) : undefined}
@@ -133,8 +137,8 @@ export default function HomeScreen_student({ navigation }) {
             onChangeText={setSearchID}
             value={searchID}
             placeholder="Search Item ID"
-            placeholderTextColor="white"
             keyboardType="numeric"
+            placeholderTextColor="#6b76d8"
           />
         </View>
         <View
@@ -249,10 +253,10 @@ const styles = StyleSheet.create({
   },
   filter_id: {
     borderWidth: 1,
-    borderColor: "#FFFFFF",
+    borderColor: "#6b76d8",
     borderRadius: 5,
     marginBottom: 20,
-    backgroundColor: "#6b76d8",
+    backgroundColor: "#FFFFFF",
     color: "#FFFFFF",
     borderRadius: 14,
     height: 50,
