@@ -14,6 +14,7 @@ import Claim from "./claim";
 import API from "./Api";
 import CamTest from "./camTest";
 import Search from "./Search";
+import Uploading from "./Uploading";
 
 const Stack = createNativeStackNavigator();
 
@@ -94,6 +95,12 @@ export default function App() {
         <Stack.Screen
           name="Search"
           component={Search}
+          options={{
+            headerShown: false,
+          }}
+        /><Stack.Screen
+          name="Uploading"
+          component={Uploading}
           options={{
             headerShown: false,
           }}
