@@ -13,6 +13,7 @@ import HomeScreen_watchman from "./home_wm";
 import Claim from "./claim";
 import API from "./Api";
 import CamTest from "./camTest";
+import Search from "./Search";
 
 const Stack = createNativeStackNavigator();
 
@@ -89,7 +90,16 @@ export default function App() {
             headerShown: false,
           }}
         />
+
+        <Stack.Screen
+          name="Search"
+          component={Search}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
+
     </NavigationContainer>
   );
 }

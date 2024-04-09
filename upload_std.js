@@ -49,6 +49,7 @@ export default function upload({ route, navigation }) {
       return base64Image;
     };
     if (uri != null) {
+      navigation.navigate("Search")
       getDataUri().then((img) => {
         setFilter_id(null);
         if (img != null) {
@@ -141,9 +142,8 @@ export default function upload({ route, navigation }) {
           onValueChange={handleSliderChange}
           minimumTrackTintColor="#FFFFFF"
           maximumTrackTintColor="#000000"
-          thumbTintColor={`rgb(${255 - (threshold * 255) / 100}, ${
-            (threshold * 255) / 100
-          }, 0)`}
+          thumbTintColor={`rgb(${255 - (threshold * 255) / 100}, ${(threshold * 255) / 100
+            }, 0)`}
         />
         <Text style={styles.value}>{threshold}</Text>
       </View>
