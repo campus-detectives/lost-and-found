@@ -21,7 +21,7 @@ const Stack = createNativeStackNavigator();
 
 const initialScreen = "HomeScreen_student";
 
-// LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs();
 
 export default function App() {
   const initialScreen = "Signin";
