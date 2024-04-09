@@ -27,7 +27,29 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={initialScreen}>
+      <Stack.Navigator initialRouteName={initialScreen} screenOptions={{
+        headerShown: false,
+        gestureEnabled: true,
+        gestureDirection: 'horizontal',
+        cardStyleInterpolator: ({ current, layouts }) => {
+          const { index } = current;
+          const inputRange = [index - 1, index, index + 1];
+          const translateX = current.progress.interpolate({
+            inputRange,
+            outputRange: [layouts.screen.width, 0, -layouts.screen.width],
+          });
+
+          return {
+            cardStyle: {
+              transform: [{ translateX }],
+            },
+          };
+        },
+        transitionSpec: {
+          open: { animation: 'timing', config: { duration: 1200 } },
+          close: { animation: 'timing', config: { duration: 1200 } },
+        },
+      }}>
         <Stack.Screen
           name="Signup"
           component={Signup}
