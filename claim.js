@@ -23,7 +23,7 @@ export default function HomeScreen_student({ route, navigation }) {
     return (
       <Image
         source={{ uri: dataUrl }}
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: "100%", height: "100%", borderRadius: 20 }}
       />
     );
   };
@@ -49,23 +49,7 @@ export default function HomeScreen_student({ route, navigation }) {
       <StatusBar backgroundColor="#141e3c" />
       <ScrollView style={{ flex: 1, padding: 5 }}>
         <View>
-          <Text style={styles.header}>Register</Text>
-        </View>
-
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: "white",
-            margin: 5,
-            width: 300,
-            height: 300,
-            alignSelf: "center",
-          }}
-        >
-          <DisplayDataUrlAsImage
-            dataUrl={dataUrl}
-            style={{ width: "100%", height: "100%" }}
-          />
+          <Text style={styles.header}>Claim</Text>
         </View>
 
         <View
@@ -80,8 +64,25 @@ export default function HomeScreen_student({ route, navigation }) {
             flexDirection: "column",
             alignItems: "center",
             paddingBottom: 30,
+            paddingTop: 30,
           }}
         >
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: "white",
+              margin: 5,
+              width: 300,
+              height: 300,
+              alignSelf: "center",
+              borderRadius: 20,
+            }}
+          >
+            <DisplayDataUrlAsImage
+              dataUrl={dataUrl}
+              style={{ width: "100%", height: "100%" }}
+            />
+          </View>
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
           >
@@ -103,6 +104,7 @@ export default function HomeScreen_student({ route, navigation }) {
                     textAlign: "center",
                     fontWeight: "bold",
                     fontSize: 15,
+                    color: "white",
                   }}
                 >
                   Claim
@@ -158,8 +160,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "#d9f6f7",
-    color: "white",
+    backgroundColor: "white",
+    color: "#6b76d8",
+    borderColor: "#6b76d8",
   },
   button1: {
     width: 270,
@@ -170,6 +173,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffbf00",
     marginTop: 12,
     justifyContent: "center",
+    backgroundColor: "#6b76d8",
   },
   header: {
     color: "white",

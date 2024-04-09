@@ -27,8 +27,8 @@ export default function Signin({ navigation }) {
     }
   };
 
-  const [username, onChangeText] = React.useState("Heet");
-  const [password, onChangePass] = React.useState("Heetheet");
+  const [username, onChangeText] = React.useState("Amal");
+  const [password, onChangePass] = React.useState("Amalamal");
 
   const verify = () => {
     API.signin(username, password).then((err) => {

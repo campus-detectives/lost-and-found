@@ -37,20 +37,12 @@ export default function Signup({ navigation }) {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
-          <StatusBar backgroundColor="#5d2d33" />
+          <StatusBar backgroundColor="#141e3c" />
 
           <View style={styles.center}>
-
-            <View
-              style={styles.box}
-            >
-              <Text
-                style={styles.textSignup}
-              >
-                Sign up
-              </Text>
+            <View style={styles.box}>
+              <Text style={styles.textSignup}>Sign up</Text>
               <View style={{ marginLeft: 15, marginTop: 0 }}>
-
                 <Text style={styles.lable}>Username</Text>
                 <TextInput
                   style={[styles.input, { height: 40, width: 270 }]}

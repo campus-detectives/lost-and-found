@@ -51,15 +51,15 @@ export default function upload({ route, navigation }) {
           <View
             style={{
               borderWidth: 1,
-              borderColor: "white",
               height: 40,
               width: 150,
               color: "white",
               borderRadius: 5,
-              marginBottom: 10,
+              marginBottom: 20,
               padding: 10,
               alignItems: "center",
               backgroundColor: "#ffbf00",
+              borderRadius: 10,
             }}
           >
             <Text>Click Picture</Text>
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: "#1a1a1a", // Dark gray background
+    backgroundColor: "#141e3c",
   },
   imagePicker: {
     borderWidth: 1,
@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
     borderColor: "#FFFFFF", // White border
     borderRadius: 5,
     marginBottom: 20,
-    backgroundColor: "#262626", // Dark gray input container background
-    color: "#FFFFFF", // White text
+    backgroundColor: "#d9f6f7", // Dark gray input container background
+    color: "black", // White text
     borderRadius: 14,
     height: 50,
   },
@@ -150,25 +150,27 @@ const styles = StyleSheet.create({
     width: 300,
     marginBottom: 20,
     backgroundColor: "#262626", // Dark gray input background
-    color: "#FFFFFF", // White text
+    color: "black", // White text
     borderRadius: 14,
     height: 50,
   },
   picker: {
     height: 50,
     width: 300,
-    color: "#FFFFFF", // White text
+    color: "black", // White text
   },
   button: {
-    backgroundColor: "#007BFF", // Blue button background
+    backgroundColor: "#6b76d8",
     padding: 10,
     borderRadius: 10,
+    width: 150,
   },
   buttonText: {
-    color: "#FFFFFF", // White button text
+    color: "white",
     fontWeight: "bold",
+    textAlign: "center",
   },
   text: {
-    color: "#FFFFFF", // White text
+    color: "black", // White text
   },
 });
