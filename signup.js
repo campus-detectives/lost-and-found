@@ -40,26 +40,17 @@ export default function Signup({ navigation }) {
           <StatusBar backgroundColor="#5d2d33" />
 
           <View style={styles.center}>
-            <Text
-              style={{
-                paddingTop: 3,
-                fontSize: 36,
-                color: "white",
-              }}
-            >
-              Sign up
-            </Text>
+
             <View
-              style={{
-                backgroundColor: "#2d2d64",
-                height: 355,
-                width: 300,
-                borderRadius: 20,
-                marginTop: 10,
-                borderWidth: 2,
-              }}
+              style={styles.box}
             >
-              <View style={{ marginLeft: 15, marginTop: 20 }}>
+              <Text
+                style={styles.textSignup}
+              >
+                Sign up
+              </Text>
+              <View style={{ marginLeft: 15, marginTop: 0 }}>
+
                 <Text style={styles.lable}>Username</Text>
                 <TextInput
                   style={[styles.input, { height: 40, width: 270 }]}
@@ -75,7 +66,7 @@ export default function Signup({ navigation }) {
                 />
                 <Text style={styles.lable}>Confirm Password</Text>
                 <TextInput
-                secureTextEntry={true}
+                  secureTextEntry={true}
                   style={[styles.input, { height: 40, width: 270 }]}
                   onChangeText={onChangePass}
                   value={password}
@@ -121,7 +112,7 @@ export default function Signup({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0b0b18",
+    backgroundColor: "#141e3c",
   },
   inner: {
     padding: 24,
@@ -152,9 +143,9 @@ const styles = StyleSheet.create({
   },
 
   center: {
-    marginTop: "0%",
+    paddingTop: "40%",
     alignItems: "center",
-    backgroundColor: "#0b0b18",
+    backgroundColor: "#141e3c",
   },
 
   h1: {
@@ -167,8 +158,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "#262626",
-    color: "white",
+    backgroundColor: "#d9f6f7",
+    color: "#23272a",
+    marginLeft: 25,
   },
   lable: {
     fontSize: 18,
@@ -186,8 +178,26 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "#ffbf00",
+    backgroundColor: "#6b76d8",
     marginTop: 12,
     justifyContent: "center",
+    marginLeft: 25,
+  },
+  box: {
+    backgroundColor: "#0f0f0f",
+    height: 450,
+    width: 350,
+    borderRadius: 20,
+    marginTop: 0,
+    borderWidth: 0,
+    elevation: 10,
+  },
+
+  textSignup: {
+    fontSize: 36,
+    color: "white",
+    textAlign: "center",
+    marginTop: 30,
+    marginBottom: 10,
   },
 });
