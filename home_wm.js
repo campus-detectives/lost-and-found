@@ -125,7 +125,7 @@ export default function HomeScreen_student({ navigation }) {
             >
               <View style={styles.innerButton}>
                 <Text style={styles.innnerButtonText}>
-                  {claimed ? <>UNCLAIMED</> : <>CLAIMED</>}
+                  {claimed ? <>CLAIMED</> : <>UNCLAIMED</>}
                 </Text>
               </View>
             </Pressable>
