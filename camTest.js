@@ -68,7 +68,13 @@ export default function App({ route, navigation }) {
     return (
       <SafeAreaView style={styles.container}>
         <Image
-          style={styles.preview}
+          style={
+            (styles.preview,
+            {
+              height: height,
+              width: windowWidth,
+            })
+          }
           source={{ uri: "data:image/jpg;base64," + photo.base64 }}
         />
 
@@ -86,9 +92,9 @@ export default function App({ route, navigation }) {
                 width: 100,
                 borderWidth: 2,
                 borderColor: "black",
-                backgroundColor: "#ffbf00",
+                backgroundColor: "#6b76d8",
                 bottom: 0,
-                marginBottom: 10,
+                marginTop: 50,
                 borderRadius: 10,
                 alignItems: "center",
                 padding: 10,
@@ -110,9 +116,9 @@ export default function App({ route, navigation }) {
                 width: 100,
                 borderWidth: 2,
                 borderColor: "black",
-                backgroundColor: "#ffbf00",
+                backgroundColor: "#6b76d8",
                 bottom: 0,
-                marginBottom: 10,
+                marginTop: 50,
                 borderRadius: 10,
                 alignItems: "center",
                 padding: 10,
@@ -131,7 +137,7 @@ export default function App({ route, navigation }) {
   }
 
   return (
-    <>
+    <View style={{ height: "100%", backgroundColor: "black" }}>
       <Camera
         style={{
           height: height,
@@ -156,12 +162,12 @@ export default function App({ route, navigation }) {
           backgroundColor: "white",
           position: "absolute",
           bottom: 0,
-          marginBottom: 10,
+          marginBottom: 80,
           left: "40%",
         }}
         onPress={takePic}
       ></Pressable>
-    </>
+    </View>
   );
 }
 
@@ -170,6 +176,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "black",
   },
   preview: {
     alignSelf: "stretch",
