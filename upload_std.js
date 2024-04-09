@@ -58,28 +58,43 @@ export default function upload({ route, navigation }) {
       base64Image = "data:image/png;base64," + base64Image;
       return base64Image;
     };
+    if (uri != null) {
+      getDataUri().then((img) => {
+        setFilter_id(null);
+        if (img != null) {
+          API.matchingItem(img, threshold).then(([res, err]) => {
+            if (err == null) {
+              filtered_id = res.match;
+              if (filtered_id === null) {
+                filtered_id = [];
+              }
+            } else {
+              console.log(err);
+            }
+            console.log("f", filtered_id);
 
-    getDataUri().then((img) => {
+            setFilter_id(filtered_id);
+
+            console.log("Selected Cat:", selectedCat);
+            console.log("Selected Place:", selectedPlace);
+            console.log("Threshold:", threshold);
+            SelectedCat(selectedCat === "" ? null : selectedCat);
+            SelectedPlace(selectedPlace === "" ? null : selectedPlace);
+
+            navigation.navigate("HomeScreen_student");
+          });
+        }
+      });
+    } else {
       setFilter_id(null);
-      if (img != null) {
-        API.matchingItem(img, threshold).then(([res, err]) => {
-          if (err == null) {
-            filtered_id = res.match;
-          } else {
-            console.log(err);
-          }
-          console.log(filtered_id);
-          console.log("Selected Cat:", selectedCat);
-          console.log("Selected Place:", selectedPlace);
-          console.log("Threshold:", threshold);
-          SelectedCat(selectedCat);
-          SelectedPlace(selectedPlace);
-          setFilter_id(filtered_id);
-          filter(selectedCat, selectedPlace, filtered_id);
-          navigation.navigate("HomeScreen_student");
-        });
-      }
-    });
+      console.log("Selected Cat:", selectedCat);
+      console.log("Selected Place:", selectedPlace);
+      console.log("Threshold:", threshold);
+      SelectedCat(selectedCat === "" ? null : selectedCat);
+      SelectedPlace(selectedPlace === "" ? null : selectedPlace);
+
+      navigation.navigate("HomeScreen_student");
+    }
   };
 
   return (

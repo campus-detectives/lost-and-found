@@ -36,9 +36,9 @@ export default function Signin({ navigation }) {
     }
   };
 
-  const [username, onChangeText] = React.useState("Amal");
+  const [username, onChangeText] = React.useState("Heet");
   const [regnum, onChangeRegNum] = React.useState("");
-  const [password, onChangePass] = React.useState("Amalamal");
+  const [password, onChangePass] = React.useState("Heetheet");
 
   const verify = () => {
     API.signin(username, password).then((err) => {
@@ -61,11 +61,6 @@ export default function Signin({ navigation }) {
             <StatusBar backgroundColor="#5d2d33" />
 
             <View style={[styles.center, styles.h1]}>
-              {/* <Image
-                style={styles.logo}
-                source={require("../../assets/download.jpeg")}
-              /> */}
-
               <Text
                 style={{
                   fontSize: 36,
@@ -77,7 +72,7 @@ export default function Signin({ navigation }) {
               <View
                 style={{
                   backgroundColor: "#2d2d64",
-                  height: 355,
+                  height: 300,
                   width: 300,
                   borderRadius: 20,
                   marginTop: 10,
@@ -91,14 +86,9 @@ export default function Signin({ navigation }) {
                     onChangeText={onChangeText}
                     value={username}
                   />
-                  <Text style={styles.lable}>Registration Number</Text>
-                  <TextInput
-                    style={[styles.input, { height: 40, width: 270 }]}
-                    onChangeText={onChangeRegNum}
-                    value={regnum}
-                  />
                   <Text style={styles.lable}>Password</Text>
                   <TextInput
+                    secureTextEntry={true}
                     style={[styles.input, { height: 40, width: 270 }]}
                     onChangeText={onChangePass}
                     value={password}

@@ -91,6 +91,8 @@ class APIManager {
     this.token = null;
     this.user = null;
     this.SignedIn = false;
+    this.items = null;
+    this.lookout = null;
     this.SigninCallback(false); // Notify the app that the user has signed out
   }
 

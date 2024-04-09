@@ -147,7 +147,7 @@ export default function HomeScreen_student({ navigation }) {
           <View>
             <Pressable
               onPress={() => {
-                /*signout code*/
+                API.signout();
               }}
             >
               <View
@@ -220,7 +220,7 @@ export default function HomeScreen_student({ navigation }) {
                     verticalAlign: "middle",
                   }}
                 >
-                  {claimed ? <>CLAIMED</> : <>UNCLIMED</>}
+                  {claimed ? <>CLAIMED</> : <>UNCLAIMED</>}
                 </Text>
               </View>
             </Pressable>

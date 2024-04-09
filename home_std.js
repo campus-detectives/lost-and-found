@@ -40,52 +40,43 @@ export default function HomeScreen_student({ route, navigation }) {
       }
     });
   }, []);
-  /* id, found_time, found_by, location, category, image */
   const DisplayDataUrlAsImage = ({ dataUrl }) => {
     return <Image source={{ uri: dataUrl }} style={styles.row_icon} />;
   };
-  /*const lookout = [
-    //api end point //master list
-    { itemID: 1, Cat: "Bottle", Place: "A Block" },
-    { itemID: 2, Cat: "Bottle", Place: "A Block" },
-    { itemID: 3, Cat: "Bottle", Place: "A Block" },
-    { itemID: 4, Cat: "A5", Place: "A Block" },
-    { itemID: 1, Cat: "A1", Place: "AB1" },
-    { itemID: 1, Cat: "A6", Place: "B6" },
-    { itemID: 1, Cat: "A7", Place: "B7" },
-    { itemID: 1, Cat: "A3", Place: "B8" },
-    { itemID: 1, Cat: "A2", Place: "B9" },
-    { itemID: 1, Cat: "A10", Place: "B10" },
-    { itemID: 1, Cat: "A11", Place: "B11" },
-  ];*/
-  //const [filtered_list, setFilteredList] = useState(lookout);
+
   fl = [];
-  const renderItem = ({ item }) => (
-    <>
-      {(selectedPlace === null || selectedPlace === item.location) &&
-      (selecetdCat === null || selecetdCat == item.category) &&
-      (filtered_id === null || filtered_id.includes(item.id)) ? (
-        <View
-          style={[
-            styles.rows,
-            {
-              flexDirection: "row",
-              alignItems: "center",
-            },
-          ]}
-        >
-          <DisplayDataUrlAsImage dataUrl={item.image} style={styles.row_icon} />
-          <View style={{ padding: 10 }}>
-            <View>
-              <Text>Type: {item.category}</Text>
-              <Text>Location: {item.location}</Text>
-              <Text>ID: {item.id}</Text>
+  const renderItem = ({ item }) => {
+    console.log(selectedPlace, selecetdCat, filtered_id);
+    return (
+      <>
+        {(selectedPlace === null || selectedPlace === item.location) &&
+        (selecetdCat === null || selecetdCat == item.category) &&
+        (filtered_id === null || filtered_id.includes(item.id)) ? (
+          <View
+            style={[
+              styles.rows,
+              {
+                flexDirection: "row",
+                alignItems: "center",
+              },
+            ]}
+          >
+            <DisplayDataUrlAsImage
+              dataUrl={item.image}
+              style={styles.row_icon}
+            />
+            <View style={{ padding: 10 }}>
+              <View>
+                <Text>Type: {item.category}</Text>
+                <Text>Location: {item.location}</Text>
+                <Text>ID: {item.id}</Text>
+              </View>
             </View>
           </View>
-        </View>
-      ) : undefined}
-    </>
-  );
+        ) : undefined}
+      </>
+    );
+  };
 
   const filter = (SelectedCat, SelectedPlace, filtered_id) => {
     console.log({ SelectedCat });
@@ -195,7 +186,7 @@ export default function HomeScreen_student({ route, navigation }) {
                   padding: 5,
                 }}
               >
-                ADD LOOKOUT
+                FILTER
               </Text>
             </View>
           </Pressable>

@@ -22,14 +22,16 @@ export default function Signup({ navigation }) {
   const [password, onChangePass] = React.useState("");
 
   const onPressContinue = () => {
-    API.register(username, password).then(err => {
-      if (err !== null) {
-        console.log(err)
-      } else {
-        navigation.navigate("Signin");
-      }
-    });
-  }
+    if (regnum === password) {
+      API.register(username, password).then((err) => {
+        if (err !== null) {
+          console.log(err);
+        } else {
+          navigation.navigate("Signin");
+        }
+      });
+    }
+  };
 
   return (
     <KeyboardAvoidingView
@@ -41,11 +43,6 @@ export default function Signup({ navigation }) {
           <StatusBar backgroundColor="#5d2d33" />
 
           <View style={styles.center}>
-            {/* <Image
-              style={[styles.logo, styles.h1]}
-              source={require("../../assets/download.jpeg")}
-            /> */}
-
             <Text
               style={{
                 paddingTop: 3,
@@ -74,12 +71,14 @@ export default function Signup({ navigation }) {
                 />
                 <Text style={styles.lable}>Password</Text>
                 <TextInput
+                  secureTextEntry={true}
                   style={[styles.input, { height: 40, width: 270 }]}
                   onChangeText={onChangeRegNum}
                   value={regnum}
                 />
                 <Text style={styles.lable}>Confirm Password</Text>
                 <TextInput
+                secureTextEntry={true}
                   style={[styles.input, { height: 40, width: 270 }]}
                   onChangeText={onChangePass}
                   value={password}

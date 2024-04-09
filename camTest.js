@@ -77,11 +77,12 @@ export default function App({ route, navigation }) {
           style={styles.preview}
           source={{ uri: "data:image/jpg;base64," + photo.base64 }}
         />
-        {/* <Button title="Share" onPress={sharePic} /> */}
+
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-around",
+            justifyContent: "space-evenly",
+            margin: 10,
           }}
         >
           <View>
@@ -97,20 +98,17 @@ export default function App({ route, navigation }) {
                 borderRadius: 10,
                 alignItems: "center",
                 padding: 10,
+                margin: 5,
               }}
               onPress={ok}
             >
               <View>
                 <Text style={{ color: "white" }} t>
-                  okay
+                  OKAY
                 </Text>
               </View>
             </Pressable>
           </View>
-          {/* {hasMediaLibraryPermission ? (
-          <Button title="Save" onPress={savePhoto} />
-        ) : undefined} */}
-          {/* <Button title="Discard" onPress={() => setPhoto(undefined)} /> */}
           <View>
             <Pressable
               style={{
@@ -124,11 +122,12 @@ export default function App({ route, navigation }) {
                 borderRadius: 10,
                 alignItems: "center",
                 padding: 10,
+                margin: 5,
               }}
               onPress={() => setPhoto(undefined)}
             >
               <View>
-                <Text style={{ color: "white" }}>Again</Text>
+                <Text style={{ color: "white" }}>AGAIN</Text>
               </View>
             </Pressable>
           </View>
