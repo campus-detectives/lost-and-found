@@ -15,6 +15,7 @@ import API from "./Api";
 import CamTest from "./camTest";
 import Search from "./Search";
 import Uploading from "./Uploading";
+import Contest from "./contest";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,29 +28,32 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={initialScreen} screenOptions={{
-        headerShown: false,
-        gestureEnabled: true,
-        gestureDirection: 'horizontal',
-        cardStyleInterpolator: ({ current, layouts }) => {
-          const { index } = current;
-          const inputRange = [index - 1, index, index + 1];
-          const translateX = current.progress.interpolate({
-            inputRange,
-            outputRange: [layouts.screen.width, 0, -layouts.screen.width],
-          });
+      <Stack.Navigator
+        initialRouteName={initialScreen}
+        screenOptions={{
+          headerShown: false,
+          gestureEnabled: true,
+          gestureDirection: "horizontal",
+          cardStyleInterpolator: ({ current, layouts }) => {
+            const { index } = current;
+            const inputRange = [index - 1, index, index + 1];
+            const translateX = current.progress.interpolate({
+              inputRange,
+              outputRange: [layouts.screen.width, 0, -layouts.screen.width],
+            });
 
-          return {
-            cardStyle: {
-              transform: [{ translateX }],
-            },
-          };
-        },
-        transitionSpec: {
-          open: { animation: 'timing', config: { duration: 1200 } },
-          close: { animation: 'timing', config: { duration: 1200 } },
-        },
-      }}>
+            return {
+              cardStyle: {
+                transform: [{ translateX }],
+              },
+            };
+          },
+          transitionSpec: {
+            open: { animation: "timing", config: { duration: 1200 } },
+            close: { animation: "timing", config: { duration: 1200 } },
+          },
+        }}
+      >
         <Stack.Screen
           name="Signup"
           component={Signup}
@@ -120,15 +124,22 @@ export default function App() {
           options={{
             headerShown: false,
           }}
-        /><Stack.Screen
+        />
+        <Stack.Screen
           name="Uploading"
           component={Uploading}
           options={{
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="Contest"
+          component={Contest}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
-
     </NavigationContainer>
   );
 }

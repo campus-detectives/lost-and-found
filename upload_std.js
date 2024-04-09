@@ -9,7 +9,7 @@ import * as FileSystem from "expo-file-system";
 export default function upload({ route, navigation }) {
   const [selectedCat, setSelectedCat] = useState("");
   const [selectedPlace, setSelectedPlace] = useState("");
-  const [threshold, setThreshold] = useState(69);
+  const [threshold, setThreshold] = useState(70);
   const [uri, setUri] = useState(null);
 
   const SelectedCat = route.params.setSelectedCat;
@@ -49,7 +49,7 @@ export default function upload({ route, navigation }) {
       return base64Image;
     };
     if (uri != null) {
-      navigation.navigate("Search")
+      navigation.navigate("Search");
       getDataUri().then((img) => {
         setFilter_id(null);
         if (img != null) {
@@ -91,6 +91,7 @@ export default function upload({ route, navigation }) {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.header}>Filters</Text>
       <TouchableOpacity onPress={pickImage}>
         <View style={styles.imagePicker}>
           <Text>Select a Photo</Text>
@@ -159,8 +160,9 @@ export default function upload({ route, navigation }) {
           onValueChange={handleSliderChange}
           minimumTrackTintColor="#FFFFFF"
           maximumTrackTintColor="#000000"
-          thumbTintColor={`rgb(${255 - (threshold * 255) / 100}, ${(threshold * 255) / 100
-            }, 0)`}
+          thumbTintColor={`rgb(${255 - (threshold * 255) / 100}, ${
+            (threshold * 255) / 100
+          }, 0)`}
         />
         <Text style={styles.value}>{threshold}</Text>
       </View>
@@ -248,4 +250,10 @@ const styles = StyleSheet.create({
   },
   sliderText: { color: "white", fontWeight: "bold", fontSize: 20 },
   value: { fontSize: 50, color: "white" },
+  header: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 40,
+    padding: 10,
+  },
 });

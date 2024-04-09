@@ -229,6 +229,38 @@ class APIManager {
     }
   }
 
+  async contestClaim(itemData) {
+    if (!this.check()) {
+      return "Failed to contest claim";
+    }
+    try {
+      const response = await fetch(`${APIUrl}/found/contest`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token.token}`, // Include the authentication token in the request header
+        },
+        body: JSON.stringify(itemData), // Provide the item data in JSON format
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          this.ohno();
+        }
+        console.log(await response.json());
+        // Handle error based on response status
+        return "Failed to contest claim";
+      }
+
+      console.log("Item claim contested successfully!");
+      // Optionally, handle further actions upon successful item addition
+      return null; // Return null to indicate success
+    } catch (error) {
+      console.error("Failed to contest claim:", error.message);
+      return "Failed to contest claim"; // Return error message
+    }
+  }
+
   refreshItems(setLookout) {
     this.items = null;
     API.getItems().then((res) => {

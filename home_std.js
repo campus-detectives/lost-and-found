@@ -22,6 +22,7 @@ export default function HomeScreen_student({ route, navigation }) {
   const [selecetdCat, setSelectedCat] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [lookout, setLookout] = useState([]);
+  const [claimed, setClaimed] = useState(false);
   const [filtered_id, setFilter_id] = useState(null);
   useEffect(() => {
     API.getItems().then((res) => {
@@ -43,7 +44,8 @@ export default function HomeScreen_student({ route, navigation }) {
       <>
         {(selectedPlace === null || selectedPlace === item.location) &&
         (selecetdCat === null || selecetdCat == item.category) &&
-        (filtered_id === null || filtered_id.includes(item.id)) ? (
+        (filtered_id === null || filtered_id.includes(item.id)) &&
+        item.claimed === claimed ? (
           <View
             style={[
               styles.rows,
@@ -126,9 +128,21 @@ export default function HomeScreen_student({ route, navigation }) {
               <Text style={styles.innerButtonText}>FILTER</Text>
             </View>
           </Pressable>
-          <Pressable onPress={() => navigation.navigate("Alert")}>
+          <Pressable onPress={() => navigation.navigate("Contest")}>
             <View style={styles.innerButton}>
-              <Text style={styles.innerButtonText}>ALERTS</Text>
+              <Text style={styles.innerButtonText}>Contest</Text>
+            </View>
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              setClaimed(!claimed);
+              console.log(claimed);
+            }}
+          >
+            <View style={styles.innerButton}>
+              <Text style={styles.innerButtonText}>
+                {claimed ? <>CLAIMED</> : <>UNCLAIMED</>}
+              </Text>
             </View>
           </Pressable>
         </View>
@@ -223,9 +237,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#610400",
   },
   buttons: {
-    margin: 20,
+    marginTop: 10,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
   },
   signoutText: {
@@ -233,7 +247,7 @@ const styles = StyleSheet.create({
   },
   innerButton: {
     height: 40,
-    width: 150,
+    width: 120,
     padding: 5,
     borderRadius: 5,
     elevation: 50,
