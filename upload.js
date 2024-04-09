@@ -9,47 +9,17 @@ import {
   Pressable,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-
-import * as ImagePicker from "expo-image-picker";
-import DropdownList from "./dropdown"; // assuming DropdownList is in the same directory
 import API from "./Api";
-
-// const items = [
-//   { label: "Select Item", value: "" },
-//   { label: "Earpods", value: "earpods" },
-//   { label: "Umbrella", value: "umbrella" },
-//   { label: "Stationary", value: "stationary" },
-// ];
 
 export default function upload({ route, navigation }) {
   const [selectedItem, setSelectedItem] = useState("");
   const [selectedPlace, setSelectedPlace] = useState("");
 
   const [uri, setUri] = useState(null);
-  // const pickImage = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.Images,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   });
-
-  //   console.log(result);
-
-  //   if (!result.cancelled) {
-  //     setPhoto(result.uri);
-  //   }
-  // };
 
   const handleSubmit = () => {
-    // Here you can handle the submission of the form data
     console.log("Selected Item:", selectedItem);
     console.log("Selected Place:", selectedPlace);
-    // TODO
-    // uri !=null
-    // category selected
-    // location selected
-    // otherwise dont add item but show error
     if (uri === null) {
       return;
     }
@@ -66,7 +36,6 @@ export default function upload({ route, navigation }) {
         navigation.navigate("HomeScreen_watchman");
       }
     });
-    // You can send the data to your backend or perform any other action
   };
 
   return (

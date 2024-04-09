@@ -1,33 +1,23 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  TextInput,
-  StyleSheet,
-} from "react-native";
+import { View, Text, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
-import DropdownList from "./dropdown"; // assuming DropdownList is in the same directory
 import Slider from "@react-native-community/slider";
 import API from "./Api";
 import * as FileSystem from "expo-file-system";
 
 export default function upload({ route, navigation }) {
-  const [photo, setPhoto] = useState(null);
   const [selectedCat, setSelectedCat] = useState("");
   const [selectedPlace, setSelectedPlace] = useState("");
-  const [threshold, setThreshold] = useState(60);
+  const [threshold, setThreshold] = useState(69);
   const [uri, setUri] = useState(null);
 
   const SelectedCat = route.params.setSelectedCat;
   const SelectedPlace = route.params.setSelectedPlace;
-  const filter = route.params.filter;
   const setFilter_id = route.params.setFilter_id;
 
   const handleSliderChange = (value) => {
-    setThreshold(value);
+    setThreshold(value.toFixed(0));
   };
 
   const pickImage = async () => {
@@ -62,7 +52,8 @@ export default function upload({ route, navigation }) {
       getDataUri().then((img) => {
         setFilter_id(null);
         if (img != null) {
-          API.matchingItem(img, threshold).then(([res, err]) => {
+          API.matchingItem(img, parseFloat(threshold)).then(([res, err]) => {
+            let filtered_id = null;
             if (err == null) {
               filtered_id = res.match;
               if (filtered_id === null) {
@@ -103,17 +94,9 @@ export default function upload({ route, navigation }) {
         <View style={styles.imagePicker}>
           <Text>Select a Photo</Text>
         </View>
-        <Image
-          style={{
-            height: 300,
-            width: 300,
-            marginBottom: 10,
-            borderRadius: 10,
-            borderWidth: 2,
-            borderColor: "white",
-          }}
-          source={{ uri: uri }}
-        />
+        {uri !== null ? (
+          <Image style={styles.Image} source={{ uri: uri }} />
+        ) : undefined}
       </TouchableOpacity>
       <View style={styles.inputContainer}>
         <Picker
@@ -143,17 +126,8 @@ export default function upload({ route, navigation }) {
         </Picker>
       </View>
 
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: -60,
-        }}
-      >
-        <Text style={{ color: "white", fontWeight: "bold" }}>
-          Set sensitivity threshold
-        </Text>
+      <View style={styles.sliderView}>
+        <Text style={styles.sliderText}>Set sensitivity threshold</Text>
         <Slider
           style={{
             width: 300,
@@ -171,7 +145,7 @@ export default function upload({ route, navigation }) {
             (threshold * 255) / 100
           }, 0)`}
         />
-        <Text style={{ fontSize: 50, color: "white" }}>{threshold}</Text>
+        <Text style={styles.value}>{threshold}</Text>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Submit</Text>
@@ -186,9 +160,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: "#1a1a1a",
+    backgroundColor: "#141e3c",
   },
   imagePicker: {
+    marginTop: 110,
     borderWidth: 1,
     borderColor: "#FFFFFF",
     alignItems: "center",
@@ -197,15 +172,15 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 20,
     borderRadius: 10,
-    backgroundColor: "#333333",
+    backgroundColor: "#d9f6f7",
   },
   inputContainer: {
     borderWidth: 1,
-    borderColor: "#FFFFFF",
+    borderColor: "#000",
     borderRadius: 5,
     marginBottom: 20,
-    backgroundColor: "#262626",
-    color: "#FFFFFF",
+    backgroundColor: "#d9f6f7",
+    color: "#000",
     borderRadius: 14,
     height: 50,
   },
@@ -224,18 +199,36 @@ const styles = StyleSheet.create({
   picker: {
     height: 50,
     width: 300,
-    color: "#FFFFFF",
+    color: "#000",
   },
   button: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "#6b76d8",
     padding: 10,
     borderRadius: 10,
+    width: 150,
   },
   buttonText: {
     color: "#FFFFFF",
     fontWeight: "bold",
+    textAlign: "center",
   },
   text: {
     color: "#FFFFFF",
   },
+  Image: {
+    height: 300,
+    width: 300,
+    marginBottom: 10,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "white",
+  },
+  sliderView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  sliderText: { color: "white", fontWeight: "bold", fontSize: 20 },
+  value: { fontSize: 50, color: "white" },
 });

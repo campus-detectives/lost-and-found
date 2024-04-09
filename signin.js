@@ -5,25 +5,16 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
-  Image,
-  useWindowDimensions,
   TextInput,
   KeyboardAvoidingView,
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
-  Button,
   Pressable,
-  ScrollView,
 } from "react-native";
 import API from "./Api";
 
 export default function Signin({ navigation }) {
-  const windowWidth = useWindowDimensions().width;
-  const windowHeight = useWindowDimensions().height;
-  const windowFontScale = useWindowDimensions().fontScale;
-  const windowScale = useWindowDimensions().scale;
   API.SigninCallback = (signedin) => {
     if (signedin) {
       if (API.user.is_guard) {
@@ -37,7 +28,6 @@ export default function Signin({ navigation }) {
   };
 
   const [username, onChangeText] = React.useState("Heet");
-  const [regnum, onChangeRegNum] = React.useState("");
   const [password, onChangePass] = React.useState("Heetheet");
 
   const verify = () => {
@@ -45,40 +35,24 @@ export default function Signin({ navigation }) {
       console.log(err);
     });
   };
-  verify();
+  //verify();
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{
         flex: 1,
-        backgroundColor: "#0b0b18",
+        backgroundColor: "#141e3c",
       }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
-          <SafeAreaView tyle={{ flex: 1, justifyContent: "space-around" }}>
-            <StatusBar backgroundColor="#5d2d33" />
+          <SafeAreaView style={styles.sav}>
+            <StatusBar backgroundColor="#141e3c" />
 
             <View style={[styles.center, styles.h1]}>
-              <Text
-                style={{
-                  fontSize: 36,
-                  color: "white",
-                }}
-              >
-                Sign in
-              </Text>
-              <View
-                style={{
-                  backgroundColor: "#2d2d64",
-                  height: 300,
-                  width: 300,
-                  borderRadius: 20,
-                  marginTop: 10,
-                  borderWidth: 2,
-                }}
-              >
+              <View style={styles.box}>
+                <Text style={styles.textSignin}>Sign in</Text>
                 <View style={{ marginLeft: 15, marginTop: 20 }}>
                   <Text style={styles.lable}>Username</Text>
                   <TextInput
@@ -95,30 +69,14 @@ export default function Signin({ navigation }) {
                   />
 
                   <Pressable style={styles.button1} onPress={verify}>
-                    <Text
-                      style={{
-                        textAlign: "center",
-                        fontWeight: "bold",
-                        fontSize: 15,
-                      }}
-                    >
-                      Continue
-                    </Text>
+                    <Text style={styles.buttonText}>Continue</Text>
                   </Pressable>
 
                   <Pressable
                     style={{ marginTop: 15 }}
                     onPress={() => navigation.navigate("Signup")}
                   >
-                    <Text
-                      style={{
-                        textAlign: "center",
-                        color: "white",
-                        fontWeight: "bold",
-                        fontSize: 15,
-                        paddingRight: 10,
-                      }}
-                    >
+                    <Text style={styles.footerText}>
                       Not Signed up? Sign up
                     </Text>
                   </Pressable>
@@ -150,7 +108,7 @@ const styles = StyleSheet.create({
   center: {
     paddingTop: "40%",
     alignItems: "center",
-    backgroundColor: "#0b0b18",
+    backgroundColor: "#141e3c",
   },
 
   h1: {
@@ -163,8 +121,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "#262626",
-    color: "white",
+    backgroundColor: "#d9f6f7",
+    color: "#23272a",
+    marginLeft: 25,
   },
   lable: {
     fontSize: 18,
@@ -182,8 +141,40 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "#ffbf00",
+    backgroundColor: "#6b76d8",
     marginTop: 12,
     justifyContent: "center",
+    marginLeft: 25,
+  },
+  sav: {
+    flex: 1,
+    justifyContent: "space-around",
+  },
+  textSignin: {
+    fontSize: 36,
+    color: "white",
+    textAlign: "center",
+    marginTop: 30,
+  },
+  box: {
+    backgroundColor: "#0f0f0f",
+    height: 400,
+    width: 350,
+    borderRadius: 20,
+    marginTop: 10,
+    borderWidth: 0,
+    elevation: 10,
+  },
+  buttonText: {
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 15,
+  },
+  footerText: {
+    textAlign: "center",
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 15,
+    paddingRight: 10,
   },
 });

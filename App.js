@@ -1,19 +1,5 @@
 import React from "react";
-import {
-  View,
-  KeyboardAvoidingView,
-  TextInput,
-  StyleSheet,
-  Text,
-  Platform,
-  TouchableWithoutFeedback,
-  Button,
-  Keyboard,
-  StatusBar,
-  Image,
-  onChangeText,
-  Pressable,
-} from "react-native";
+import { LogBox } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -32,10 +18,10 @@ const Stack = createNativeStackNavigator();
 
 const initialScreen = "HomeScreen_student";
 
-export default function App() {
-  const [signedIn, setSignedIn] = React.useState(false);
+// LogBox.ignoreAllLogs();
 
-  const initialScreen = API.SignedIn ? "HomeScreen_student" : "Signin";
+export default function App() {
+  const initialScreen = "Signin";
 
   return (
     <NavigationContainer>
@@ -107,10 +93,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#0b0b18",
-  },
-});

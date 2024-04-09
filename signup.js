@@ -7,11 +7,8 @@ import {
   Text,
   Platform,
   TouchableWithoutFeedback,
-  Button,
   Keyboard,
   StatusBar,
-  Image,
-  onChangeText,
   Pressable,
 } from "react-native";
 import API from "./Api";

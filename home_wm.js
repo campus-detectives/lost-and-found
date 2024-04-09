@@ -6,26 +6,18 @@ import {
   StyleSheet,
   Text,
   Platform,
-  TouchableWithoutFeedback,
-  Button,
-  Keyboard,
   StatusBar,
   Image,
-  onChangeText,
   Pressable,
   FlatList,
   useWindowDimensions,
   ScrollView,
-  DisplayDataUrlAsImage,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Picker } from "@react-native-picker/picker";
 import API from "./Api";
 
 export default function HomeScreen_student({ navigation }) {
   const username = API.user.username;
   const windowHeight = useWindowDimensions().height - 150;
-  const [filtered_list, setFilteredList] = useState([]);
   const [lookout, setLookout] = useState([]);
   const [searchID, setSearchID] = useState("");
   const [length, setLength] = useState();
@@ -42,8 +34,6 @@ export default function HomeScreen_student({ navigation }) {
       }
     });
   }, []);
-
-  const dataUrl = ""; //demo uri
 
   const DisplayDataUrlAsImage = ({ dataUrl }) => {
     return <Image source={{ uri: dataUrl }} style={styles.row_icon} />;
@@ -65,9 +55,9 @@ export default function HomeScreen_student({ navigation }) {
         >
           <DisplayDataUrlAsImage dataUrl={item.image} style={styles.row_icon} />
           <View style={{ padding: 10 }}>
-            <Text>Type: {item.category}</Text>
-            <Text>Loaction: {item.location}</Text>
-            <Text>ID: {item.id}</Text>
+            <Text style={{ color: "white" }}>Type: {item.category}</Text>
+            <Text style={{ color: "white" }}>Loaction: {item.location}</Text>
+            <Text style={{ color: "white" }}>ID: {item.id}</Text>
             {claimed ? <Text>Claimed By: {item.claimed_by}</Text> : undefined}
           </View>
           {!claimed ? (
@@ -78,14 +68,7 @@ export default function HomeScreen_student({ navigation }) {
                 right: 10,
               }}
             >
-              <View
-                style={{
-                  backgroundColor: "#ffbf00",
-                  padding: 10,
-                  width: 60,
-                  borderRadius: 10,
-                }}
-              >
+              <View style={styles.claim}>
                 <Text>Claim</Text>
               </View>
             </Pressable>
@@ -95,54 +78,17 @@ export default function HomeScreen_student({ navigation }) {
     </>
   );
 
-  const filter = (itemValue) => {
-    for (var i = 0; i < lostItemList.length; i++) {
-      if (itemValue == lostItemList[i].items) {
-        fl.push(lostItemList[i]);
-      }
-    }
-    console.log(fl);
-    setFilteredList(fl);
-  };
-
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
-      <StatusBar backgroundColor="#5d2d33" />
+      <StatusBar backgroundColor="#141e3c" />
       <View>
-        <View
-          style={{
-            borderColor: "white",
-            borderBottomWidth: 2,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <View style={styles.header}>
           <View>
-            <Text
-              style={{
-                color: "white",
-                fontSize: 20,
-                textAlignVertical: "center",
-                padding: 10,
-              }}
-            >
-              Welcome,
-            </Text>
-            <Text
-              style={{
-                color: "white",
-                fontSize: 20,
-                textAlignVertical: "center",
-                paddingBottom: 10,
-                paddingLeft: 10,
-              }}
-            >
-              {username}
-            </Text>
+            <Text style={styles.welcomeText}>Welcome,</Text>
+            <Text style={styles.usernameText}>{username}</Text>
           </View>
           <View>
             <Pressable
@@ -150,49 +96,19 @@ export default function HomeScreen_student({ navigation }) {
                 API.signout();
               }}
             >
-              <View
-                style={{
-                  borderWidth: 1,
-                  borderColor: "white",
-                  padding: 10,
-                  borderRadius: 10,
-                }}
-              >
+              <View style={styles.signoutButton}>
                 <Text style={{ color: "white" }}>Signout</Text>
               </View>
             </Pressable>
           </View>
         </View>
-        <View
-          style={{
-            margin: 20,
-            flexDirection: "row",
-            justifyContent: "space-around",
-            alignItems: "center",
-          }}
-        >
+        <View style={styles.buttons}>
           <View>
             <Pressable
               onPress={() => navigation.navigate("Upload", { setLookout })}
             >
-              <View
-                style={{
-                  height: 50,
-                  width: 150,
-                  padding: 15,
-                  paddingLeft: 10,
-                  borderRadius: 5,
-                  backgroundColor: "#2d2d64",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "white",
-                    textAlign: "center",
-                  }}
-                >
-                  ADD ITEM
-                </Text>
+              <View style={styles.innerButton}>
+                <Text style={styles.innnerButtonText}>ADD ITEM</Text>
               </View>
             </Pressable>
           </View>
@@ -203,23 +119,8 @@ export default function HomeScreen_student({ navigation }) {
                 console.log(claimed);
               }}
             >
-              <View
-                style={{
-                  height: 50,
-                  width: 150,
-                  padding: 15,
-                  paddingLeft: 10,
-                  borderRadius: 5,
-                  backgroundColor: "#2d2d64",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "white",
-                    textAlign: "center",
-                    verticalAlign: "middle",
-                  }}
-                >
+              <View style={styles.innerButton}>
+                <Text style={styles.innnerButtonText}>
                   {claimed ? <>CLAIMED</> : <>UNCLAIMED</>}
                 </Text>
               </View>
@@ -228,19 +129,7 @@ export default function HomeScreen_student({ navigation }) {
         </View>
         <View style={{ padding: 5, alignItems: "center" }}>
           <TextInput
-            style={{
-              borderWidth: 1,
-              borderColor: "#FFFFFF",
-              borderRadius: 5,
-              marginBottom: 20,
-              backgroundColor: "#262626",
-              color: "#FFFFFF",
-              borderRadius: 14,
-              height: 50,
-              width: 300,
-              margin: "auto",
-              padding: 10,
-            }}
+            style={styles.filter_id}
             onChangeText={setSearchID}
             value={searchID}
             placeholder="Search Item ID"
@@ -271,7 +160,7 @@ export default function HomeScreen_student({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0b0b18",
+    backgroundColor: "#141e3c",
   },
   rows: [
     {
@@ -281,7 +170,7 @@ const styles = StyleSheet.create({
       borderRadius: 20,
       flexDirection: "row",
       alignItems: "center",
-      backgroundColor: "white",
+      backgroundColor: "#0f0f0f",
     },
     {
       shadowColor: "#000",
@@ -294,5 +183,81 @@ const styles = StyleSheet.create({
       elevation: 5,
     },
   ],
-  row_icon: { height: 75, width: 75, borderRadius: 10 },
+  row_icon: {
+    height: 75,
+    width: 75,
+    borderRadius: 10,
+    borderColor: "black",
+    borderWidth: 1,
+  },
+  claim: {
+    backgroundColor: "#6b76d8",
+    padding: 10,
+    width: 60,
+    borderRadius: 10,
+  },
+  header: {
+    borderColor: "white",
+    borderBottomWidth: 0.5,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  welcomeText: {
+    color: "#ffffff",
+    fontSize: 20,
+    textAlignVertical: "center",
+    padding: 5,
+    marginLeft: 10,
+    fontWeight: "900",
+  },
+  usernameText: {
+    color: "#ffffff",
+    fontSize: 20,
+    textAlignVertical: "center",
+    paddingBottom: 10,
+    paddingLeft: 10,
+    marginLeft: 8,
+    fontWeight: "900",
+  },
+  signoutButton: {
+    borderWidth: 0.5,
+    borderColor: "#2c2f33",
+    padding: 10,
+    borderRadius: 10,
+    margin: 10,
+    backgroundColor: "#610400",
+  },
+  buttons: {
+    margin: 20,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  innerButton: {
+    height: 50,
+    width: 150,
+    padding: 15,
+    paddingLeft: 10,
+    borderRadius: 5,
+    backgroundColor: "#6b76d8",
+  },
+  innnerButtonText: {
+    color: "white",
+    textAlign: "center",
+    verticalAlign: "middle",
+  },
+  filter_id: {
+    borderWidth: 1,
+    borderColor: "#FFFFFF",
+    borderRadius: 5,
+    marginBottom: 20,
+    backgroundColor: "#6b76d8",
+    color: "#FFFFFF",
+    borderRadius: 14,
+    height: 50,
+    width: 300,
+    margin: "auto",
+    padding: 10,
+  },
 });

@@ -4,20 +4,17 @@ import {
   Text,
   View,
   SafeAreaView,
-  Button,
   Image,
   Pressable,
   useWindowDimensions,
 } from "react-native";
 import { useEffect, useRef, useState } from "react";
 import { Camera } from "expo-camera";
-import { shareAsync } from "expo-sharing";
 import * as MediaLibrary from "expo-media-library";
 
 export default function App({ route, navigation }) {
   let cameraRef = useRef();
   const [hasCameraPermission, setHasCameraPermission] = useState();
-  const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState();
   const [photo, setPhoto] = useState();
 
   const windowWidth = useWindowDimensions().width;
@@ -58,9 +55,6 @@ export default function App({ route, navigation }) {
 
   if (photo) {
     let ok = () => {
-      //   shareAsync(photo.uri).then(() => {
-      //     setPhoto(undefined);
-      //   });
       su("data:image/jpg;base64," + photo.base64);
       navigation.navigate("Upload");
     };
@@ -140,7 +134,6 @@ export default function App({ route, navigation }) {
     <>
       <Camera
         style={{
-          // flex: ,
           height: height,
           width: windowWidth,
           alignItems: "center",
@@ -151,8 +144,6 @@ export default function App({ route, navigation }) {
         }}
         ref={cameraRef}
       >
-        {/* <Button title="Take Pic" onPress={takePic} /> */}
-
         <StatusBar style="auto" />
       </Camera>
       <Pressable
@@ -180,10 +171,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  //   buttonContainer: {
-  //     backgroundColor: "#fff",
-  //     alignSelf: "flex-end",
-  //   },
   preview: {
     alignSelf: "stretch",
     flex: 1,

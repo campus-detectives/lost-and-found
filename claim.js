@@ -6,26 +6,15 @@ import {
   StyleSheet,
   Text,
   Platform,
-  TouchableWithoutFeedback,
-  Button,
-  Keyboard,
   StatusBar,
   Image,
-  onChangeText,
   Pressable,
-  FlatList,
   useWindowDimensions,
   ScrollView,
-  DisplayDataUrlAsImage,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Picker } from "@react-native-picker/picker";
 import API from "./Api";
-// import { Picker } from "@react-native-community/picker";
 
 export default function HomeScreen_student({ route, navigation }) {
-  const username = "HEET BRIJESH JHAVERI";
-  const windowHeight = useWindowDimensions().height - 150;
   const item = route.params.item;
   const setLookout = route.params.setLookout;
   const uri = item.image;
