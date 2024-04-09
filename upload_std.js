@@ -107,9 +107,25 @@ export default function upload({ route, navigation }) {
         >
           <Picker.Item label="Select Category" value="" />
           <Picker.Item label="Bottle" value="Bottle" />
-          <Picker.Item label="pen" value="pen" />
-          <Picker.Item label="earpods" value="earpods" />
-          <Picker.Item label="laptop" value="laptop" />
+          <Picker.Item label="Pen" value="Pen" />
+          <Picker.Item label="Earpods" value="Earpods" />
+          <Picker.Item label="Laptop" value="Laptop" />
+          <Picker.Item label="Charger" value="Charger" />
+          <Picker.Item label="Phone" value="Phone" />
+          <Picker.Item label="Pen/Pencil" value="Pen_pencil" />
+          <Picker.Item label="Book" value="Book" />
+          <Picker.Item label="Wallet" value="Wallet" />
+          <Picker.Item label="Keys" value="Keys" />
+          <Picker.Item label="Bag" value="Bag" />
+          <Picker.Item label="ID Card" value="Id_card" />
+          <Picker.Item label="Lunch Box" value="Lunch_box" />
+          <Picker.Item label="Calculator" value="Calculator" />
+          <Picker.Item label="Earphones" value="Earphones" />
+          <Picker.Item label="Headphones" value="Headphones" />
+          <Picker.Item label="Ear Rings" value="Ear_rings" />
+          <Picker.Item label="Nose Rings" value="Nose_rings" />
+          <Picker.Item label="Shoes" value="Shoes" />
+
         </Picker>
       </View>
 
