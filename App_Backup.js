@@ -4,15 +4,6 @@ import {
   KeyboardAvoidingView,
   TextInput,
   StyleSheet,
-  Text,
-  Platform,
-  TouchableWithoutFeedback,
-  Button,
-  Keyboard,
-  StatusBar,
-  Image,
-  onChangeText,
-  Pressable,
 } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";

@@ -11,6 +11,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Pressable,
+  Image
 } from "react-native";
 import API from "./Api";
 
@@ -49,7 +50,6 @@ export default function Signin({ navigation }) {
         <View style={styles.inner}>
           <SafeAreaView style={styles.sav}>
             <StatusBar backgroundColor="#141e3c" />
-
             <View style={[styles.center, styles.h1]}>
               <View style={styles.box}>
                 <Text style={styles.textSignin}>Sign in</Text>

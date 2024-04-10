@@ -10,6 +10,7 @@ import {
   Keyboard,
   StatusBar,
   Pressable,
+  Image,
 } from "react-native";
 import API from "./Api";
 
@@ -38,7 +39,6 @@ export default function Signup({ navigation }) {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>
           <StatusBar backgroundColor="#141e3c" />
-
           <View style={styles.center}>
             <View style={styles.box}>
               <Text style={styles.textSignup}>Sign up</Text>
@@ -102,6 +102,23 @@ export default function Signup({ navigation }) {
 }
 
 const styles = StyleSheet.create({
+  logo: {
+    width: 300,
+    height: 300,
+    borderRadius: 75,
+    borderColor: "black",
+    verticalAlign: "center",
+    alignSelf: "center",
+    marginTop: 220,
+  },
+  logo: {
+    width: 300,
+    height: 300,
+    borderRadius: 75,
+    verticalAlign: "center",
+    alignSelf: "center",
+    marginTop: 220,
+  },
   container: {
     flex: 1,
     backgroundColor: "#141e3c",

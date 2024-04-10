@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   KeyboardAvoidingView,
-  TextInput,
   StyleSheet,
   Text,
   Platform,
@@ -130,7 +129,7 @@ export default function HomeScreen_student({ route, navigation }) {
           </Pressable>
           <Pressable onPress={() => navigation.navigate("Contest")}>
             <View style={styles.innerButton}>
-              <Text style={styles.innerButtonText}>Contest</Text>
+              <Text style={styles.innerButtonText}>CONTEST</Text>
             </View>
           </Pressable>
           <Pressable

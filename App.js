@@ -16,15 +16,14 @@ import CamTest from "./camTest";
 import Search from "./Search";
 import Uploading from "./Uploading";
 import Contest from "./contest";
+import Introduction from "./Introduction";
 
 const Stack = createNativeStackNavigator();
-
-const initialScreen = "HomeScreen_student";
 
 LogBox.ignoreAllLogs();
 
 export default function App() {
-  const initialScreen = "Signin";
+  const initialScreen = "Introduction";
 
   return (
     <NavigationContainer>
@@ -135,6 +134,13 @@ export default function App() {
         <Stack.Screen
           name="Contest"
           component={Contest}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Introduction"
+          component={Introduction}
           options={{
             headerShown: false,
           }}
