@@ -24,11 +24,11 @@ export default function Signup({ navigation }) {
       id: claimedItem,
       contested_by: regNum,
     };
-    /* API.contestClaim(claim).then((err) => {
+    API.contestClaim(claim).then((err) => {
       if (err !== null) {
         console.log(err);
       }
-    });*/
+    });
 
     navigation.navigate("HomeScreen_student");
   };
