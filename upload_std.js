@@ -9,7 +9,7 @@ import * as FileSystem from "expo-file-system";
 export default function upload({ route, navigation }) {
   const [selectedCat, setSelectedCat] = useState("");
   const [selectedPlace, setSelectedPlace] = useState("");
-  const [threshold, setThreshold] = useState(70);
+  const [threshold, setThreshold] = useState(5);
   const [uri, setUri] = useState(null);
 
   const SelectedCat = route.params.setSelectedCat;
@@ -146,7 +146,7 @@ export default function upload({ route, navigation }) {
       </View>
 
       <View style={styles.sliderView}>
-        <Text style={styles.sliderText}>Set sensitivity threshold</Text>
+        <Text style={styles.sliderText}>No. of items</Text>
         <Slider
           style={{
             width: 300,
@@ -155,13 +155,13 @@ export default function upload({ route, navigation }) {
             borderColor: "white",
           }}
           minimumValue={0}
-          maximumValue={100}
+          maximumValue={20}
           value={threshold}
           onValueChange={handleSliderChange}
           minimumTrackTintColor="#FFFFFF"
           maximumTrackTintColor="#000000"
-          thumbTintColor={`rgb(${255 - (threshold * 255) / 100}, ${
-            (threshold * 255) / 100
+          thumbTintColor={`rgb(${255 - (threshold * 255) / 20}, ${
+            (threshold * 255) / 20
           }, 0)`}
         />
         <Text style={styles.value}>{threshold}</Text>
