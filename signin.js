@@ -11,7 +11,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Pressable,
-  Image
+  Image,
 } from "react-native";
 import API from "./Api";
 
@@ -28,8 +28,8 @@ export default function Signin({ navigation }) {
     }
   };
 
-  const [username, onChangeText] = React.useState("Amal");
-  const [password, onChangePass] = React.useState("Amalamal");
+  const [username, onChangeText] = React.useState("");
+  const [password, onChangePass] = React.useState("");
 
   const verify = () => {
     API.signin(username, password).then((err) => {

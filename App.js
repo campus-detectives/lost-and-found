@@ -17,6 +17,7 @@ import Search from "./Search";
 import Uploading from "./Uploading";
 import Contest from "./contest";
 import Introduction from "./Introduction";
+import Laundry from "./laundry";
 
 const Stack = createNativeStackNavigator();
 
@@ -141,6 +142,13 @@ export default function App() {
         <Stack.Screen
           name="Introduction"
           component={Introduction}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Laundry"
+          component={Laundry}
           options={{
             headerShown: false,
           }}

@@ -111,7 +111,18 @@ export default function HomeScreen_student({ route, navigation }) {
             </Pressable>
           </View>
         </View>
-
+        <View>
+          <View style={styles.buttons}>
+            <Pressable
+              onPress={() => {
+                navigation.navigate("Laundry");
+              }}
+              style={styles.innerButton2}
+            >
+              <Text style={styles.innerButtonText2}>Laundry</Text>
+            </Pressable>
+          </View>
+        </View>
         <View style={styles.buttons}>
           <Pressable
             onPress={() =>
@@ -253,6 +264,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#6b76d8",
   },
   innerButtonText: {
+    color: "black",
+    textAlign: "center",
+    padding: 5,
+  },
+  innerButton2: {
+    height: 40,
+    width: 385,
+    padding: 5,
+    borderRadius: 5,
+    elevation: 50,
+    backgroundColor: "#ffbf00",
+  },
+
+  innerButtonText2: {
     color: "black",
     textAlign: "center",
     padding: 5,
